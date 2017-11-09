@@ -18,10 +18,10 @@ public class Menu {
         System.out.println("");
         System.out.println("");
         System.out.println("-------------------------------------------------------");
-        System.out.println("Tapez \"d\" pour déplacer une carte ou une pile");
+        System.out.println("Tapez \"d\" pour deplacer une carte ou une pile");
         System.out.println("Tapez \"n\" pour commenter une nouvelle partie");
-        System.out.println("Tapez \"q\" pour quitte le jeu");
-        System.out.println("> Choix : ");
+        System.out.println("Tapez \"q\" pour quitter le jeu");
+        System.out.print("> Choix : ");
         String choix = in.next().toLowerCase();
         
         this.getCorrespondantAction(choix);

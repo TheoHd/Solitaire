@@ -3,15 +3,8 @@ package game;
 import java.util.Scanner;
 
 public class Menu {
-
-
-
-
-
-
-
-
-    public void displayMenu(){
+	
+	public void displayMenu(){
         Scanner in = new Scanner(System.in);
 
         System.out.println("");

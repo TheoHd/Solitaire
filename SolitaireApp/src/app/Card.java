@@ -2,8 +2,8 @@ package app;
 
 class Card {
 	
-	private int value;
-	private String shape;
+	private String[] value = {"1","2","3","4","5","6","7","8","9","10","V","R","D"};
+	private String[] shape = {"♥","♠","♦","♣"};
 	
 	private Card(int value, String shape){
 		this.value = 0;
@@ -18,6 +18,6 @@ class Card {
 	}
 	@Override
 	public String toString() {
-		return "Prout";
+		return "Test";
 	}
 }

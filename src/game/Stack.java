@@ -18,7 +18,7 @@ public class Stack {
 		Pioche pioche = new Pioche();
 		ArrayList<Card> cartes = pioche.getPioche();
 		this.cartes = cartes;
-
+		this.initializeStacks();
 	}	
 	
 	public void initializeStacks(){

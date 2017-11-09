@@ -5,13 +5,13 @@ import java.util.ArrayList;
 public class Stack {
 
 	private final ArrayList<Card> cartes;
-	private ArrayList<Card> row1;
-	private ArrayList<Card> row2;
-	private ArrayList<Card> row3;
-	private ArrayList<Card> row4;
-	private ArrayList<Card> row5;
-	private ArrayList<Card> row6;
-	private ArrayList<Card> row7;
+	private ArrayList<Card> row1 = new ArrayList<>();
+	private ArrayList<Card> row2 = new ArrayList<>();
+	private ArrayList<Card> row3 = new ArrayList<>();
+	private ArrayList<Card> row4 = new ArrayList<>();
+	private ArrayList<Card> row5 = new ArrayList<>();
+	private ArrayList<Card> row6 = new ArrayList<>();
+	private ArrayList<Card> row7 = new ArrayList<>();
 	
 	public Stack() {
 		Pioche pioche = new Pioche();

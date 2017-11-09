@@ -24,15 +24,15 @@ public class Stack {
 	private void initializeStacks(){
 		for (int i = 0; i < 7; i++){
 
-			Card visile_card = this.cartes.get(i);
-			visile_card.setVisible(1);
-			if(i == 0) { this.row1.add(visile_card); }
-			if(i == 1) { this.row2.add(visile_card); }
-			if(i == 2) { this.row3.add(visile_card); }
-			if(i == 3) { this.row4.add(visile_card); }
-			if(i == 4) { this.row5.add(visile_card); }
-			if(i == 5) { this.row6.add(visile_card); }
-			if(i == 6) { this.row7.add(visile_card); }
+			Card visible_card = this.cartes.get(i);
+			visible_card.setVisible(1);
+			if(i == 0) { this.row2.add(visible_card); }
+			if(i == 1) { this.row2.add(visible_card); }
+			if(i == 2) { this.row3.add(visible_card); }
+			if(i == 3) { this.row4.add(visible_card); }
+			if(i == 4) { this.row5.add(visible_card); }
+			if(i == 5) { this.row6.add(visible_card); }
+			if(i == 6) { this.row7.add(visible_card); }
 			this.cartes.remove(i);
 
 			for (int j = 0; j <= i-1; j++){

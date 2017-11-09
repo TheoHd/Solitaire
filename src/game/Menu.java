@@ -1,5 +1,6 @@
 package game;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Menu {
@@ -16,11 +17,27 @@ public class Menu {
         System.out.println("Tapez \"q\" pour quitter le jeu");
         System.out.print("> Choix : ");
         String choix = in.next().toLowerCase();
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
         
         this.getCorrespondantAction(choix);
     }
 
     private void getCorrespondantAction(String choix) {
-        System.out.println(choix);
+        if( choix.equals("d") ){
+
+            Stack stack = new Stack();
+            stack.displayAllStaks();
+
+            System.out.println("deplacer");
+
+        }else if( choix.equals("n") ){
+            Klondike klondike = new Klondike();
+            klondike.launch();
+
+        } if( choix.equals("q") ){
+            System.exit(0);
+        }
     }
 }

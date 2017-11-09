@@ -6,9 +6,7 @@ public class Klondike {
 	
     public void launch() {
 
-        Stack stack = new Stack();
-        stack.displayAllStaks();
-        //Menu menu = new Menu();
-        //menu.displayMenu();
+        Menu menu = new Menu();
+        menu.displayMenu();
     }
 }

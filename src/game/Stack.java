@@ -17,7 +17,6 @@ public class Stack {
 		Pioche pioche = new Pioche();
 		ArrayList<Card> cartes = pioche.getPioche();
 		this.cartes = cartes;
-
 		this.initializeStacks();
 	}	
 	
@@ -48,10 +47,7 @@ public class Stack {
 				if(i == 6) { this.col7.add(hidden_card); }
 				this.cartes.remove(j);
 			}
-		}
-
-		//this.displayAllStaks();
-		
+		}		
 	}
 
 	public void displayAllStaks(){

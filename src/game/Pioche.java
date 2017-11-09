@@ -11,7 +11,7 @@ public class Pioche {
     private ArrayList<Card> cartes;
 
     public Pioche(){
-        String[] formeArray = {"♦", "♥", "♣", "♠"};
+        String[] formeArray = {"♦","♥","♣","♠"};
         this.forme = new ArrayList<>(Arrays.asList(formeArray));
 
         String[] valeurArray = {"A", "2", "3", "4", "5", "7", "6", "8", "9", "10", "V", "D", "R"};

@@ -1,4 +1,4 @@
-package app;
+package game;
 
 import app.Card;
 import app.Stack;

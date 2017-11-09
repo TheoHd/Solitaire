@@ -8,7 +8,5 @@ public class Klondike {
 
         Stack stack = new Stack();
         stack.displayAllStaks();
-        //Menu menu = new Menu();
-        //menu.displayMenu();
     }
 }

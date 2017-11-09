@@ -14,14 +14,14 @@ public class Stack {
 	private final ArrayList<Card> row7 = null;
 	
 	public Stack() {
-
 		Pioche pioche = new Pioche();
 		ArrayList<Card> cartes = pioche.getPioche();
 		this.cartes = cartes;
+
 		this.initializeStacks();
 	}	
 	
-	public void initializeStacks(){
+	private void initializeStacks(){
 		for (int i = 0; i < 7; i++){
 
 			Card visile_card = this.cartes.get(i);

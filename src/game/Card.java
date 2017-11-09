@@ -16,6 +16,10 @@ class Card {
 
 	@Override
 	public String toString() {
-		return this.value + this.shape;
+    	if(this.visible == 1){
+			return this.value + this.shape;
+		}else{
+    		return "**";
+		}
 	}
 }

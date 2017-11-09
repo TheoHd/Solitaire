@@ -50,7 +50,7 @@ public class Stack {
 			}
 		}
 
-		this.displayAllStaks();
+		//this.displayAllStaks();
 		
 	}
 

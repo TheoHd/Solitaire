@@ -14,6 +14,8 @@ public class Stack {
 		this.stack = new ArrayList();
 	}
 
+
+
 	public int getId() {
 		return id;
 	}

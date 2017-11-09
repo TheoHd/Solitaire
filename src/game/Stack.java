@@ -3,33 +3,44 @@ package game;
 import java.util.ArrayList;
 
 public class Stack {
+
+	private final ArrayList<Card> cartes;
 	
-	private int id;
-	private int length;
-	private ArrayList stack;
+	private final ArrayList<Card> row1 = null;
 	
-	public Stack(int id, int length) {
-		this.id = 0;
-		this.length = 0;
-		this.stack = new ArrayList();
+	public Stack() {
+
+		Pioche pioche = new Pioche();
+		ArrayList<Card> cartes = pioche.getPioche();
+		this.cartes = cartes;
+
+	}
+	
+	
+	
+	public void initializeStacks(){
+
+		for (int i = 0; i < 7; i++){
+
+			Card visile_card = this.cartes.get(i);
+			visile_card.setVisible(1);
+			this.row1.add(visile_card);
+
+			this.cartes.remove(i);
+
+			for (int j = 0; j <= i-1; j++){
+
+				Card hidden_card = this.cartes.get(j);
+				hidden_card.setVisible(0);
+				this.row1.add(hidden_card);
+
+				this.cartes.remove(j);
+			}
+		}
+		
 	}
 
 
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getLength() {
-		return length;
-	}
-
-	public void setLength(int length) {
-		this.length = length;
-	}
 	
 }

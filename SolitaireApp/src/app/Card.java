@@ -3,17 +3,21 @@ package app;
 class Card {
 	
 	private int value;
-	private String color;
+	private String shape;
 	
-	private Card(int value, String color){
+	private Card(int value, String shape){
 		this.value = 0;
-		this.color = "";
+		this.shape = "";
 	}
 	
 	int getValue() {
 		return this.value;
 	}
 	String getColor() {
-		return this.color;
+		return this.shape;
+	}
+	@Override
+	public String toString() {
+		return "Prout";
 	}
 }

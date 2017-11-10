@@ -27,7 +27,7 @@ class Card {
 		if (this.visible) {
 			val = this.getStringValue() + this.shape;
 		} else {
-			val = "**";
+			val = "***";
 		}
 
 		return val;
@@ -36,17 +36,17 @@ class Card {
 
 	public String getStringValue() {
 		if (this.value == 1) {
-			return "A";
+			return "A ";
 		} else if (this.value == 10) {
-			return "0";
+			return "10";
 		}else if (this.value == 11) {
-			return "V";
+			return "V ";
 		} else if (this.value == 12) {
-			return "D";
+			return "D ";
 		} else if (this.value == 13) {
-			return "R";
+			return "R ";
 		} else {
-			return String.valueOf(this.value);
+			return String.valueOf(this.value) + ' ';
 		}
 
 	}

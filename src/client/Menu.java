@@ -1,8 +1,11 @@
-package game;
+package client;
 
-import static game.Helper.verifInt;
+import static app.Helper.verifInt;
 
 import java.util.Scanner;
+
+import app.Klondike;
+import app.Stack;
 
 public class Menu {
 	private Scanner sc = new Scanner(System.in);

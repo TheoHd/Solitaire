@@ -1,9 +1,10 @@
-package game;
+package app;
+
+import static app.Helper.verifInt;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
-import static game.Helper.verifInt;
 
 public class Stack {
 
@@ -49,25 +50,6 @@ public class Stack {
 
 	}
 
-
-	public void displayAllStaks(){
-
-		this.matrix = this.createMatrice( this.nbCols, this.nbRows);
-
-		for (int i = 0; i < this.nbRows; i++) {
-			this.displayCardRow(i);
-		}
-
-		this.displayNumberRow();
-	}
-
-	private void displayNumberRow() {
-		for (int col = 0; col < this.nbCols; col++) { // pour chaques colonnes
-			System.out.print("   [ " + col + " ]  ");
-		}
-		System.out.println("");
-	}
-
 	public String[][] createMatrice(Integer col, Integer row){
 		String[][] matrix = new String[row][col];
 
@@ -83,22 +65,12 @@ public class Stack {
 		return matrix;
 	}	
 	
-	private void displayCardRow(int row) {
-
-		for (int col = 0; col < this.nbCols; col++) { // pour chaques colonnes
-			if( matrix[row][col] == null ){
-				System.out.print("          ");
-			}else{
-				System.out.print("   " + matrix[row][col]  + "   |");
-			}
-		}
-		System.out.println("");
-	}
 	
-	void deplacer() {
+	
+	public void deplacer() {
 		
 	}
-	void piocher() {
+	public void piocher() {
 		
 	}
 	

@@ -21,7 +21,7 @@ public class Stack {
 		Pioche pioche = new Pioche();
 		ArrayList<Card> cartes = pioche.getPioche();
 
-		for (int i = 0; i < this.nbCols; i++) {
+		for (int i = 0; i < this.getNbCols(); i++) {
 			ArrayList<Card> col = new ArrayList<>();
 			this.cols.add(i, col);
 		}
@@ -72,6 +72,22 @@ public class Stack {
 	}
 	public void piocher() {
 		
+	}
+
+	public Integer getNbCols() {
+		return nbCols;
+	}
+
+	public void setNbCols(Integer nbCols) {
+		this.nbCols = nbCols;
+	}
+
+	public String[][] getMatrix() {
+		return matrix;
+	}
+
+	public void setMatrix(String[][] matrix) {
+		this.matrix = matrix;
 	}
 	
 }

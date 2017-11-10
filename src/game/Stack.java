@@ -2,12 +2,15 @@ package game;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Scanner;
+import static game.Helper.verifInt;
 
 public class Stack {
 
 	private final ArrayList<Card> cartes;
 	private ArrayList<ArrayList> cols = new ArrayList<>();
 	private String[][] matrix;
+	private Scanner sc = new Scanner(System.in);
 
 	private Integer nbCols = 7;
 	private Integer nbRows = 19;
@@ -72,12 +75,18 @@ public class Stack {
 	}	
 	
 	private void displayCardRow(int row) {
+
 		for (int col = 0; col < this.nbCols; col++) { // pour chaques colonnes
-				//if(col == 1){System.out.println("|");}
 				System.out.print("   " + matrix[row][col]  + "   |");
 		}
 		System.out.println("");
 	}
-
-
+	
+	void deplacer() {
+		
+	}
+	void piocher() {
+		
+	}
+	
 }

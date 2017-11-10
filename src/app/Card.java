@@ -16,6 +16,7 @@ class Card {
 		return this;
 	}
 
+	public Integer getValue() { return value; }
 	public Boolean isVisible() {
 		return this.visible;
 	}

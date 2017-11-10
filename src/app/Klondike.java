@@ -8,10 +8,10 @@ public class Klondike {
     private boolean hasWin = false;
 
     public void launch() {
+
     	// TODO Change architecture, separate app(couche métier) and client(affichage)
 
         Stack stack = new Stack();
-
         Menu menu = new Menu(stack);
         Display display = new Display(stack);
 
@@ -21,13 +21,10 @@ public class Klondike {
         while (!this.hasWin){
             display.displayGameBoard();
 
-            Integer inGameColChoice = menu.displayMenuDuringGame();
+            String inGameColChoice = menu.displayMenuDuringGame();
+            menu.getGameAction( inGameColChoice );
 
-            // TODO : Get Col : Matrix
-
-            stack.getCol(inGameColChoice);
-
-            //stack.getMatrix()
+            display.setMatrix( stack.getMatrix() );
         }
 
     }

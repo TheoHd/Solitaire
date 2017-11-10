@@ -15,18 +15,13 @@ public class Menu {
     }
 	private Scanner sc = new Scanner(System.in);
 	
-	public Integer displayMenuDuringGame(){
+	public String displayMenuDuringGame(){
 	    System.out.println("");
 	    System.out.println("");
 	    System.out.println("-------------------------------------------------");
-        System.out.print("> Déplacement : ");
+        System.out.print("> Choix : ");
 
-        Integer choix = sc.nextInt();
-
-        while(choix < 0 || choix > stack.getNbCols() - 1){
-            System.out.print("> Déplacement : ");
-            choix = sc.nextInt();
-        }
+        String choix = sc.next().toLowerCase();
 
         return choix;
     }
@@ -63,5 +58,15 @@ public class Menu {
             System.exit(0);
 
         }
+    }
+
+    public void getGameAction(String choixFrom) {
+
+        int intFrom = Integer.parseInt(choixFrom);
+
+        System.out.print("> Vers : ");
+        Integer choixTo = sc.nextInt();
+
+	    stack.move(intFrom, choixTo);
     }
 }

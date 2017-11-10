@@ -1,11 +1,9 @@
 package app;
 
-import static app.Helper.verifInt;
+import client.Display;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
-import java.util.StringJoiner;
 
 public class Stack {
 
@@ -71,26 +69,69 @@ public class Stack {
 	}
 
 
-	public void getCol(Integer nbRow){
-
-		ArrayList<Card> col = this.cols.get(nbRow);
-
-		Card last = col.get(col.size() - 1);
-
-		// TODO
-
-		//System.out.println("Résultat : " + last.toString());
-
-	}
-	
-	
-	
-	public void deplacer() {
-		
-	}
-	public void piocher() {
-		
+	private ArrayList<Card> getCol(Integer nbRow){
+		return (ArrayList<Card>) this.cols.get(nbRow);
 	}
 
+	private void setCol(Integer nbRow, ArrayList<Card> col){
+		this.cols.set(nbRow, col);
+	}
+
+	private Integer findElementsToMoves(ArrayList<Card> col){
+
+		Integer firstElement = col.size();
+
+		for (int i = 0; i < col.size() - 1 ; i++) {
+			if(col.get(i).isVisible()){
+
+				Card compare1 = col.get(i);
+				Card compare2 = col.get(i + 1);
+
+				if(compare1.getValue() > compare2.getValue()){
+					firstElement = i;
+					break;
+				}
+			}
+		}
+		return firstElement - 1; // - 1 car un arrayCollection commence à z&ro
+	}
+
+	private void setDisplayedBeforeCardWhenMove(ArrayList<Card> fromCol, Integer idElementToMove) {
+		if(idElementToMove - 1 >= 0){
+			fromCol.get(idElementToMove - 1).setVisible(true);
+		}
+	}
+	
+	public void move(Integer from, Integer to) {
+
+		ArrayList<Card> fromCol = this.getCol(from);
+		ArrayList<Card> toCol = this.getCol(to);
+
+		Integer idElementToMove = this.findElementsToMoves(fromCol);
+
+		for (int i = idElementToMove; i < fromCol.size(); i++) {
+
+			Card elementToMove = fromCol.get(i);
+			Card lastElement = toCol.get(toCol.size() - 1);
+
+			if( ( lastElement.getValue() > elementToMove.getValue() ) && ( lastElement.getValue() - elementToMove.getValue() == 1 ) ){
+				toCol.add(elementToMove);
+				fromCol.remove(i);
+
+				this.setDisplayedBeforeCardWhenMove(fromCol, idElementToMove);
+			}else{
+				System.out.println("");
+				System.out.println("-------------------------------------------------");
+				System.out.println("> Impossile de déplacer la carte : " + elementToMove.getValue() + " - " + elementToMove.toString() + " !");
+				System.out.println("-------------------------------------------------");
+				System.out.println("");
+			}
+		}
+
+		this.setCol(from, fromCol);
+		this.setCol(to, toCol);
+
+		this.matrix = this.createMatrice( this.cols );
+	}
 
 }

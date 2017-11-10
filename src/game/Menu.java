@@ -25,7 +25,7 @@ public class Menu {
         this.getCorrespondantAction(choix);
     }
 	
-	private void displayOptions() {
+	public void displayOptions() {
 	       char select = 0;
 	       Stack stack_action = new Stack();
 	       do{

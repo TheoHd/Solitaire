@@ -27,8 +27,8 @@ public class Menu {
     private void getCorrespondantAction(String choix) {
         if( choix.equals("d") ){
 
-            Stack stack = new Stack();
-            stack.displayAllStaks();
+//            Stack stack = new Stack();
+//            stack.displayAllStaks();
 
             System.out.println("deplacer");
 

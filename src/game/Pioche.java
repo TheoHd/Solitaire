@@ -7,14 +7,14 @@ import java.util.Collections;
 public class Pioche {
 
     private ArrayList<String> forme;
-    private ArrayList<String> valeur;
+    private ArrayList<Integer> valeur;
     private ArrayList<Card> cartes;
 
     public Pioche(){
         String[] formeArray = {"♦","♥","♣","♠"};
         this.forme = new ArrayList<>(Arrays.asList(formeArray));
 
-        String[] valeurArray = {"A", "2", "3", "4", "5", "7", "6", "8", "9", "10", "V", "D", "R"};
+        Integer[] valeurArray = {1, 2, 3, 4, 5, 7, 6, 8, 9, 10, 11, 12, 13};
         this.valeur = new ArrayList<>(Arrays.asList(valeurArray));
 
         this.assembleArray();
@@ -25,7 +25,7 @@ public class Pioche {
         for (int f = 0; f < this.forme.size() ; f++) {
             for (int v = 0; v < this.valeur.size(); v++) {
                 String formeValue = this.forme.get(f);
-                String valeurValue = this.valeur.get(v);
+                Integer valeurValue = this.valeur.get(v);
                 Card carte = new Card(valeurValue, formeValue);
                 this.cartes.add(carte);
             }

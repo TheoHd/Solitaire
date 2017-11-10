@@ -1,17 +1,12 @@
 package app;
 
-import static app.Helper.verifInt;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
 
 public class Stack {
 
 	private final ArrayList<Card> cartes;
-	private ArrayList<ArrayList> cols = new ArrayList<>();
+	private ArrayList<ArrayList<Card>> cols = new ArrayList<>();
 	private String[][] matrix;
-	private Scanner sc = new Scanner(System.in);
 
 	private Integer nbCols = 7;
 	private Integer nbRows = 19;

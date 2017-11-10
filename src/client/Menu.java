@@ -1,3 +1,4 @@
+
 package client;
 
 import static app.Helper.verifInt;
@@ -10,53 +11,37 @@ import app.Stack;
 public class Menu {
 	private Scanner sc = new Scanner(System.in);
 	
-	public void displayMenuAccueil(){
-		//In is used for choice later
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
+	public void displayMenuDuringGame(){
         System.out.println("-------------------------------------------------------");
-        System.out.println("Tapez \"d\" pour deplacer une carte ou une pile");
-        System.out.println("Tapez \"n\" pour commenter une nouvelle partie");
-        System.out.println("Tapez \"q\" pour quitter le jeu");
-        System.out.print("> Choix : ");
+        System.out.print("> Déplacement : ");
+
         String choix = sc.next().toLowerCase();
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        
         this.getCorrespondantAction(choix);
     }
 	
-	public void displayOptions() {
-	       char select = 0;
-	       Stack stack_action = new Stack();
-	       do{
-	          System.out.println("****** MENU DU JEU ********");
-	          System.out.println("1: Déplacer une carte/colonne");
-	          System.out.println("2: Piocher une carte");
-	          System.out.println("0: Quitter");
-	          do{
-		          System.out.print("> Choix : ");
-		          select = this.sc.nextLine().charAt(0);
-	          }while(!verifInt(48, 54, select));
-	          
-	          switch (select) {
-	            case '1' : stack_action.deplacer(); break;
-	            case '2' : stack_action.piocher(); break;
-	         }
-	       }while(select != 0);
-	       System.out.println("***************************");
-		}
+	public void displayStartupMenu() {
+        System.out.println("****** MENU DU JEU ********");
+        System.out.println("d: Démarrer une partie");
+        System.out.println("n: Rédemarrer le jeu");
+        System.out.println("q: Quitter");
+        System.out.print("> Choix : ");
+        String select = this.sc.next();
+
+        this.getCorrespondantAction(select);
+    }
 
     private void getCorrespondantAction(String choix) {
+
         if( choix.equals("d") ){
 
-            System.out.println("deplacer");
+            Display display = new Display();
+            display.displayAllStacks();
 
         }else if( choix.equals("n") ){
+
             Klondike klondike = new Klondike();
             klondike.launch();
+
 
         } if( choix.equals("q") ){
             System.exit(0);

@@ -89,5 +89,13 @@ public class Stack {
 	public void setMatrix(String[][] matrix) {
 		this.matrix = matrix;
 	}
+
+	public Integer getNbRows() {
+		return nbRows;
+	}
+
+	public void setNbRows(Integer nbRows) {
+		this.nbRows = nbRows;
+	}
 	
 }

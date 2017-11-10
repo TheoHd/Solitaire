@@ -58,6 +58,14 @@ public class Stack {
 			this.displayCardRow(i);
 		}
 
+		this.displayNumberRow();
+	}
+
+	private void displayNumberRow() {
+		for (int col = 0; col < this.nbCols; col++) { // pour chaques colonnes
+			System.out.print("   [ " + col + " ]  ");
+		}
+		System.out.println("");
 	}
 
 	public String[][] createMatrice(Integer col, Integer row){
@@ -65,19 +73,24 @@ public class Stack {
 
 		for (int i = 0; i < col; i++) {
 			for (int j = 0; j < row; j++) {
-				matrix[j][i] = "  ";
+				matrix[j][i] = null;
 				if(this.cols.get(i).size() > j){
 					matrix[j][i] = this.cols.get(i).get(j).toString();
 				}
 			}
 		}
+
 		return matrix;
 	}	
 	
 	private void displayCardRow(int row) {
 
 		for (int col = 0; col < this.nbCols; col++) { // pour chaques colonnes
+			if( matrix[row][col] == null ){
+				System.out.print("          ");
+			}else{
 				System.out.print("   " + matrix[row][col]  + "   |");
+			}
 		}
 		System.out.println("");
 	}

@@ -10,7 +10,7 @@ public class Stack {
 	private String[][] matrix;
 
 	private Integer nbCols = 7;
-	private Integer nbRows = 12;
+	private Integer nbRows = 19;
 
 
 	public Stack() {
@@ -52,9 +52,7 @@ public class Stack {
 		this.matrix = this.createMatrice( this.nbCols, this.nbRows);
 
 		for (int i = 0; i < this.nbRows; i++) {
-
 			this.displayCardRow(i);
-			System.out.println();
 		}
 
 	}
@@ -70,34 +68,15 @@ public class Stack {
 				}
 			}
 		}
-
 		return matrix;
 	}	
 	
 	private void displayCardRow(int row) {
-
-		ArrayList<String> shape = new ArrayList<>();
-		shape.add(0, "|--------|  ");
-		shape.add(1, "|        |  ");
-		shape.add(2, "|   XX   |  ");
-		shape.add(3, "|        |  ");
-		shape.add(4, "|--------|  ");
-
-		for (int shapeNb = 0; shapeNb < shape.size(); shapeNb++) { // pour chaque "shape"
-
-			for (int col = 0; col < this.nbCols; col++) { // pour chaques colonnes
-
-				if(shapeNb == 2){ // Si c'est le shape ou on affiche la carte
-					System.out.print("|   " + matrix[row][col]  + "   |  ");
-				}else {
-					System.out.print(shape.get(shapeNb));
-				}
-
-			}
-
-			System.out.println("");
-
+		for (int col = 0; col < this.nbCols; col++) { // pour chaques colonnes
+				//if(col == 1){System.out.println("|");}
+				System.out.print("   " + matrix[row][col]  + "   |");
 		}
+		System.out.println("");
 	}
 
 

@@ -89,10 +89,10 @@ public class Stack {
 			for (int col = 0; col < this.nbCols; col++) { // pour chaques colonnes
 
 				if(shapeNb == 2){ // Si c'est le shape ou on affiche la carte
-					//shape.remove(2);
 					System.out.print("|   " + matrix[row][col]  + "   |  ");
+				}else{
+					System.out.print(shape.get(shapeNb));
 				}
-				System.out.print(shape.get(shapeNb));
 
 			}
 

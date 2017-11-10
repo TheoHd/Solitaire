@@ -28,7 +28,12 @@ public class Stack {
 
 		this.cartes = cartes;
 		this.initializeStacks();
-	}	
+		this.matrix = this.createMatrice( this.getNbCols(), this.getNbRows() );
+	}
+
+	public Integer getNbCols() { return nbCols; }
+	public Integer getNbRows() { return nbRows; }
+	public String[][] getMatrix() { return matrix; }
 	
 	private void initializeStacks(){
 		for (int i = 0; i < 7; i++){
@@ -50,18 +55,17 @@ public class Stack {
 
 	}
 
-	public String[][] createMatrice(Integer col, Integer row){
+	public String[][] createMatrice(Integer col, Integer row) {
 		String[][] matrix = new String[row][col];
 
 		for (int i = 0; i < col; i++) {
 			for (int j = 0; j < row; j++) {
 				matrix[j][i] = null;
-				if(this.cols.get(i).size() > j){
+				if (this.cols.get(i).size() > j) {
 					matrix[j][i] = this.cols.get(i).get(j).toString();
 				}
 			}
 		}
-
 		return matrix;
 	}	
 	
@@ -74,28 +78,16 @@ public class Stack {
 		
 	}
 
-	public Integer getNbCols() {
-		return nbCols;
-	}
-
 	public void setNbCols(Integer nbCols) {
 		this.nbCols = nbCols;
-	}
-
-	public String[][] getMatrix() {
-		return matrix;
 	}
 
 	public void setMatrix(String[][] matrix) {
 		this.matrix = matrix;
 	}
 
-	public Integer getNbRows() {
-		return nbRows;
-	}
 
 	public void setNbRows(Integer nbRows) {
 		this.nbRows = nbRows;
 	}
-	
 }

@@ -1,4 +1,4 @@
-package game
+package app
 
 import org.testng.annotations.Test
 

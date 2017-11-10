@@ -5,6 +5,7 @@ import static app.Helper.verifInt;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.StringJoiner;
 
 public class Stack {
 
@@ -15,7 +16,6 @@ public class Stack {
 
 	private Integer nbCols = 7;
 	private Integer nbRows = 19;
-
 
 	public Stack() {
 		Pioche pioche = new Pioche();
@@ -28,7 +28,7 @@ public class Stack {
 
 		this.cartes = cartes;
 		this.initializeStacks();
-		this.matrix = this.createMatrice( this.getNbCols(), this.getNbRows() );
+		this.matrix = this.createMatrice( this.cols );
 	}
 
 	public Integer getNbCols() { return nbCols; }
@@ -55,19 +55,33 @@ public class Stack {
 
 	}
 
-	public String[][] createMatrice(Integer col, Integer row) {
-		String[][] matrix = new String[row][col];
+	public String[][] createMatrice(ArrayList<ArrayList> cols) {
 
-		for (int i = 0; i < col; i++) {
-			for (int j = 0; j < row; j++) {
+		String[][] matrix = new String[this.nbRows][this.nbCols];
+
+		for (int i = 0; i < this.nbCols; i++) {
+			for (int j = 0; j < this.nbRows; j++) {
 				matrix[j][i] = null;
-				if (this.cols.get(i).size() > j) {
-					matrix[j][i] = this.cols.get(i).get(j).toString();
+				if (cols.get(i).size() > j) {
+					matrix[j][i] = cols.get(i).get(j).toString();
 				}
 			}
 		}
 		return matrix;
-	}	
+	}
+
+
+	public void getCol(Integer nbRow){
+
+		ArrayList<Card> col = this.cols.get(nbRow);
+
+		Card last = col.get(col.size() - 1);
+
+		// TODO
+
+		//System.out.println("Résultat : " + last.toString());
+
+	}
 	
 	
 	

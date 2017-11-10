@@ -1,49 +1,66 @@
 package client;
 
-import static app.Helper.verifInt;
-
 import java.util.Scanner;
 
 import app.Klondike;
 import app.Stack;
 
 public class Menu {
+
+    private Stack stack;
+
+    public Menu(Stack stack){
+        this.stack = stack;
+    }
 	private Scanner sc = new Scanner(System.in);
 	
-	public void displayMenuDuringGame(){
-        System.out.println("-------------------------------------------------------");
+	public Integer displayMenuDuringGame(){
+	    System.out.println("");
+	    System.out.println("");
+	    System.out.println("-------------------------------------------------");
         System.out.print("> Déplacement : ");
 
-        String choix = sc.next().toLowerCase();
-        this.getCorrespondantAction(choix);
+        Integer choix = sc.nextInt();
+
+        while(choix < 0 || choix > stack.getNbCols() - 1){
+            System.out.print("> Déplacement : ");
+            choix = sc.nextInt();
+        }
+
+        return choix;
     }
 	
-	public void displayStartupMenu() {
+	public Integer displayStartupMenu() {
         System.out.println("****** MENU DU JEU ********");
-        System.out.println("d: Démarrer une partie");
-        System.out.println("n: Rédemarrer le jeu");
-        System.out.println("q: Quitter");
+        System.out.println("1: Démarrer une partie");
+        System.out.println("2: Rédemarrer le jeu");
+        System.out.println("3: Quitter");
         System.out.print("> Choix : ");
-        String select = this.sc.next();
 
-        this.getCorrespondantAction(select);
+        Integer choix = sc.nextInt();
+
+        while(choix < 1 || choix > 3){
+            System.out.print("> Choix : ");
+            choix = sc.nextInt();
+        }
+
+        return choix;
     }
 
-    private void getCorrespondantAction(String choix) {
+    public void getCorrespondantAction(Integer choix) {
+        if( choix == 1 ){
 
-        if( choix.equals("d") ){
+            System.out.println("\n\n\n");
 
-            Display display = new Display();
-            display.displayAllStacks();
-
-        }else if( choix.equals("n") ){
+        }else if( choix == 2 ){
 
             Klondike klondike = new Klondike();
             klondike.launch();
 
+        }else if( choix == 3 ){
 
-        } if( choix.equals("q") ){
             System.exit(0);
+
         }
     }
 }

@@ -1,6 +1,5 @@
 package app;
 
-import client.Display;
 import client.Menu;
 
 public class Klondike {

@@ -1,17 +1,12 @@
 package app;
 
-import static app.Helper.verifInt;
-
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
 
 public class Stack {
 
 	private final ArrayList<Card> cartes;
-	private ArrayList<ArrayList> cols = new ArrayList<>();
+	private ArrayList<ArrayList<Card>> cols = new ArrayList<>();
 	private String[][] matrix;
-	private Scanner sc = new Scanner(System.in);
 
 	private Integer nbCols = 7;
 	private Integer nbRows = 19;
@@ -21,7 +16,7 @@ public class Stack {
 		Pioche pioche = new Pioche();
 		ArrayList<Card> cartes = pioche.getPioche();
 
-		for (int i = 0; i < this.nbCols; i++) {
+		for (int i = 0; i < this.getNbCols(); i++) {
 			ArrayList<Card> col = new ArrayList<>();
 			this.cols.add(i, col);
 		}
@@ -78,5 +73,16 @@ public class Stack {
 		
 	}
 
+	public void setNbCols(Integer nbCols) {
+		this.nbCols = nbCols;
+	}
 
+	public void setMatrix(String[][] matrix) {
+		this.matrix = matrix;
+	}
+
+
+	public void setNbRows(Integer nbRows) {
+		this.nbRows = nbRows;
+	}
 }

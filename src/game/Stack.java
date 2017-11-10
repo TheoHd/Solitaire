@@ -78,9 +78,8 @@ public class Stack {
 		}
 
 		return matrix;
-	}
-
-
+	}	
+	
 	private void displayCardRow(int row) {
 
 		for (int col = 0; col < this.nbCols; col++) { // pour chaques colonnes

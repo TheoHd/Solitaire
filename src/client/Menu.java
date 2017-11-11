@@ -64,7 +64,11 @@ public class Menu {
     public void getGameAction(String choixFrom) {
 
 	    if(Objects.equals(choixFrom, "*")){
-            stack.addPiocheCardOnPile();
+
+            if( !stack.addPiocheCardOnPile() ){
+                System.out.println("La pioche est vide ! impossible de piocher une carte !");
+            }
+
         }else{
             int intColFrom = Integer.parseInt(choixFrom);
 

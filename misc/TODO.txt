@@ -27,6 +27,8 @@ for (i = 1 ! >= 7, i++){
 klondike.initialize() // affiché le plateau de base
 
 
+Redo : undo -> sauvegarde le plateau et les colonnes dans un arrayList History
+
 
 
 ///////////////////////////////////

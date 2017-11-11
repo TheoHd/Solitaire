@@ -93,7 +93,7 @@ public class Stack {
 				Card compare1 = col.get(i);
 				Card compare2 = col.get(i + 1);
 
-				if(compare1.getValue() > compare2.getValue()){
+				if(compare1.getValue() > compare2.getValue() && ( compare1.getValue() - compare2.getValue() ) == 1){
 					firstElement = i;
 					break;
 				}
@@ -102,7 +102,7 @@ public class Stack {
 		return firstElement;
 	}
 
-	private void setDisplayedBeforeCardWhenMove(ArrayList<Card> fromCol, Integer idElementToMove) {
+	private void setBeforeMovePreviousCardToVisble(ArrayList<Card> fromCol, Integer idElementToMove) {
 		if(idElementToMove - 1 >= 0){
 			fromCol.get(idElementToMove - 1).setVisible(true);
 		}
@@ -120,7 +120,6 @@ public class Stack {
 		if(!this.isPileCard(fromCol)){
 			result = this.moveOneCard(fromCol, toCol, idElementToMove);
 		}else{
-			System.out.println("Pile card | element to start : " + idElementToMove);
 			result = this.moveStack(fromCol, toCol, idElementToMove);
 		}
 
@@ -131,7 +130,7 @@ public class Stack {
 		}
 	}
 
-	public void addPiocheCardOnPile(){
+	public Boolean addPiocheCardOnPile(){
 
 		Random rand = new Random();
 		Integer randomColNumber = rand.nextInt(this.nbCols);
@@ -144,14 +143,13 @@ public class Stack {
 
 			col.add(card);
 			this.cartes.remove(0);
-
 			this.setCol(randomColNumber, col);
 			this.matrix = this.createMatrice( this.cols );
 
-		}else{
-			System.out.println("La pioche est vide ! impossible de piocher une carte !");
+			return true;
 		}
 
+		return false;
 	}
 
 	private boolean isPileCard(ArrayList<Card> fromCol) {
@@ -159,17 +157,14 @@ public class Stack {
 		Integer Nbfirst = this.findFirstElementNumberToMove(fromCol);
 		Integer NbLast = fromCol.size() - 1;
 
-		System.out.println(Nbfirst + " -> " + NbLast);
-
 		return Nbfirst != NbLast;
 	}
 
 
 	public boolean moveStack(ArrayList<Card> fromCol, ArrayList<Card> toCol, int idElementToMove){
 
-		for (int i = idElementToMove; i < fromCol.size(); i++) {
-			System.out.println("Numéro : " + i);
-			//this.moveOneCard(fromCol, toCol, idElementToMove);
+		for (int i = idElementToMove; i <= fromCol.size(); i++) {
+			this.moveOneCard(fromCol, toCol, idElementToMove);
 		}
 
 		return true;
@@ -177,16 +172,26 @@ public class Stack {
 
 	public Boolean moveOneCard(ArrayList<Card> fromCol, ArrayList<Card> toCol, int idElementToMove){
 
-		System.out.println("Carte à déplacer : " + (idElementToMove) + " - " + fromCol.get(idElementToMove));
+		//System.out.println("Carte à déplacer : " + (idElementToMove) + " - " + fromCol.get(idElementToMove));
 
 		Card elementToMove = fromCol.get(idElementToMove);
-		Card lastElement = toCol.get(toCol.size() - 1);
 
-		if( ( lastElement.getValue() > elementToMove.getValue() ) && ( lastElement.getValue() - elementToMove.getValue() == 1 ) ){
+		boolean moveAuthorisation = false;
+
+		if(toCol.size() > 0){
+			Card lastElement = toCol.get(toCol.size() - 1);
+			if( ( lastElement.getValue() > elementToMove.getValue() ) && ( lastElement.getValue() - elementToMove.getValue() == 1 ) ){
+				moveAuthorisation = true;
+			}
+		}else {
+			moveAuthorisation = true;
+		}
+
+		if(moveAuthorisation){
 			toCol.add(elementToMove);
 			fromCol.remove(idElementToMove);
 
-			this.setDisplayedBeforeCardWhenMove(fromCol, idElementToMove);
+			this.setBeforeMovePreviousCardToVisble(fromCol, idElementToMove);
 			return true;
 		}else{
 			System.out.println("");

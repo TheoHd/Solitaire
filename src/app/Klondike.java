@@ -16,7 +16,8 @@ public class Klondike {
         Menu menu = new Menu(stack);
         Display display = new Display(stack);
 
-        Integer startupChoice = menu.displayStartupMenu();
+        //Integer startupChoice = menu.displayStartupMenu();
+        Integer startupChoice = 1; // A enlever plus tard
         menu.getCorrespondantAction(startupChoice);
 
         while (!this.hasWin){

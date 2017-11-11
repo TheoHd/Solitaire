@@ -1,10 +1,10 @@
 package app;
 
-class Card {
+public class Card {
 
 	private final Integer value;
 	private final String shape;
-	private Boolean visible;
+	private Boolean visible = false;
 
 	public Card(Integer value, String shape) {
 		this.value = value;

@@ -1,6 +1,9 @@
 package client;
 
+import app.Card;
 import app.Stack;
+
+import java.util.ArrayList;
 
 public class Display {
 
@@ -30,6 +33,24 @@ public class Display {
 			System.out.println("");
 		}
 		this.displayNumberRow();
+		this.displayPioche();
+	}
+
+	private void displayPioche() {
+		ArrayList<Card> cards = this.stack.getPioche();
+
+		System.out.println();
+
+		if (cards.size() > 0) {
+			Card card = cards.get(0);
+
+			card.setVisible(true);
+			System.out.print("Pour piocher une carte tapez (*) | ");
+			System.out.print("Cartes restantes : " + cards.size());
+			System.out.println(" | Prochaine carte : " + card.toString());
+		}else{
+			System.out.println("La pioche est vide !");
+		}
 	}
 
 	private void displayNumberRow() {

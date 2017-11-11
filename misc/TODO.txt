@@ -40,3 +40,9 @@ public function initialize(){
 	}
 
 }
+
+
+
+
+
+TODO : verifier les entree plur choisir une colonne : > 0 et < 7

@@ -1,8 +1,7 @@
 package app;
 
-import client.Display;
-
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Stack {
@@ -15,8 +14,8 @@ public class Stack {
 	private Integer nbCols = 7;
 	private Integer nbRows = 19;
 
-	private ArrayList<Card> fromCol;
-	private ArrayList<Card> toCol;
+//	private ArrayList<Card> fromCol;
+//	private ArrayList<Card> toCol;
 
 	public Stack() {
 		Pioche pioche = new Pioche();
@@ -80,9 +79,13 @@ public class Stack {
 		this.cols.set(nbRow, col);
 	}
 
+	public ArrayList<Card> getPioche(){
+		return this.cartes;
+	}
+
 	private Integer findFirstElementNumberToMove(ArrayList<Card> col){
 
-		Integer firstElement = col.size();
+		Integer firstElement = col.size() - 1; // - 1 car un arrayCollection commence à z&ro
 
 		for (int i = 0; i < col.size() - 1 ; i++) {
 			if(col.get(i).isVisible()){
@@ -96,7 +99,7 @@ public class Stack {
 				}
 			}
 		}
-		return firstElement - 1; // - 1 car un arrayCollection commence à z&ro
+		return firstElement;
 	}
 
 	private void setDisplayedBeforeCardWhenMove(ArrayList<Card> fromCol, Integer idElementToMove) {
@@ -107,22 +110,70 @@ public class Stack {
 	
 	public void move(Integer from, Integer to) {
 
-		this.fromCol = this.getCol(from);
-		this.toCol = this.getCol(to);
+		ArrayList<Card> fromCol = this.getCol(from);
+		ArrayList<Card> toCol = this.getCol(to);
 
-		Integer idElementToMove = this.findFirstElementNumberToMove(this.fromCol);
+		boolean result = false;
 
-		boolean result = this.moveOneCard(this.fromCol, this.toCol, idElementToMove);
+		Integer idElementToMove = this.findFirstElementNumberToMove(fromCol);
+
+		if(!this.isPileCard(fromCol)){
+			result = this.moveOneCard(fromCol, toCol, idElementToMove);
+		}else{
+			System.out.println("Pile card | element to start : " + idElementToMove);
+			result = this.moveStack(fromCol, toCol, idElementToMove);
+		}
 
 		if(result){
-
-			this.setCol(from, this.fromCol);
-			this.setCol(to, this.toCol);
-
+			this.setCol(from, fromCol);
+			this.setCol(to, toCol);
 			this.matrix = this.createMatrice( this.cols );
 		}
 	}
 
+	public void addPiocheCardOnPile(){
+
+		Random rand = new Random();
+		Integer randomColNumber = rand.nextInt(this.nbCols);
+
+		ArrayList<Card> col = this.getCol(randomColNumber);
+
+		if (this.cartes.size() > 0) {
+
+			Card card = this.cartes.get(0);
+
+			col.add(card);
+			this.cartes.remove(0);
+
+			this.setCol(randomColNumber, col);
+			this.matrix = this.createMatrice( this.cols );
+
+		}else{
+			System.out.println("La pioche est vide ! impossible de piocher une carte !");
+		}
+
+	}
+
+	private boolean isPileCard(ArrayList<Card> fromCol) {
+
+		Integer Nbfirst = this.findFirstElementNumberToMove(fromCol);
+		Integer NbLast = fromCol.size() - 1;
+
+		System.out.println(Nbfirst + " -> " + NbLast);
+
+		return Nbfirst != NbLast;
+	}
+
+
+	public boolean moveStack(ArrayList<Card> fromCol, ArrayList<Card> toCol, int idElementToMove){
+
+		for (int i = idElementToMove; i < fromCol.size(); i++) {
+			System.out.println("Numéro : " + i);
+			//this.moveOneCard(fromCol, toCol, idElementToMove);
+		}
+
+		return true;
+	}
 
 	public Boolean moveOneCard(ArrayList<Card> fromCol, ArrayList<Card> toCol, int idElementToMove){
 

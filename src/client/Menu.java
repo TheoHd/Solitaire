@@ -1,6 +1,8 @@
 
 package client;
 
+import java.util.Objects;
+import java.util.Random;
 import java.util.Scanner;
 
 import app.Klondike;
@@ -16,7 +18,6 @@ public class Menu {
 	private Scanner sc = new Scanner(System.in);
 	
 	public String displayMenuDuringGame(){
-	    System.out.println("");
 	    System.out.println("");
 	    System.out.println("-------------------------------------------------");
         System.out.print("> Choix : ");
@@ -62,11 +63,15 @@ public class Menu {
 
     public void getGameAction(String choixFrom) {
 
-        int intColFrom = Integer.parseInt(choixFrom);
+	    if(Objects.equals(choixFrom, "*")){
+            stack.addPiocheCardOnPile();
+        }else{
+            int intColFrom = Integer.parseInt(choixFrom);
 
-        System.out.print("> Vers : ");
-        Integer intColTo = sc.nextInt();
+            System.out.print("> Vers : ");
+            Integer intColTo = sc.nextInt();
 
-        stack.move(intColFrom - 1, intColTo - 1); // -1 car l'indexation commence à zéro
+            stack.move(intColFrom - 1, intColTo - 1); // -1 car l'indexation commence à zéro
+        }
     }
 }

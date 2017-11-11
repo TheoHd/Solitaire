@@ -62,11 +62,11 @@ public class Menu {
 
     public void getGameAction(String choixFrom) {
 
-        int intFrom = Integer.parseInt(choixFrom);
+        int intColFrom = Integer.parseInt(choixFrom);
 
         System.out.print("> Vers : ");
-        Integer choixTo = sc.nextInt();
+        Integer intColTo = sc.nextInt();
 
-	    stack.move(intFrom, choixTo);
+        stack.move(intColFrom - 1, intColTo - 1); // -1 car l'indexation commence à zéro
     }
 }

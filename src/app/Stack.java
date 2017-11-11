@@ -15,6 +15,9 @@ public class Stack {
 	private Integer nbCols = 7;
 	private Integer nbRows = 19;
 
+	private ArrayList<Card> fromCol;
+	private ArrayList<Card> toCol;
+
 	public Stack() {
 		Pioche pioche = new Pioche();
 		ArrayList<Card> cartes = pioche.getPioche();
@@ -77,7 +80,7 @@ public class Stack {
 		this.cols.set(nbRow, col);
 	}
 
-	private Integer findElementsToMoves(ArrayList<Card> col){
+	private Integer findFirstElementNumberToMove(ArrayList<Card> col){
 
 		Integer firstElement = col.size();
 
@@ -104,34 +107,44 @@ public class Stack {
 	
 	public void move(Integer from, Integer to) {
 
-		ArrayList<Card> fromCol = this.getCol(from);
-		ArrayList<Card> toCol = this.getCol(to);
+		this.fromCol = this.getCol(from);
+		this.toCol = this.getCol(to);
 
-		Integer idElementToMove = this.findElementsToMoves(fromCol);
+		Integer idElementToMove = this.findFirstElementNumberToMove(this.fromCol);
 
-		for (int i = idElementToMove; i < fromCol.size(); i++) {
+		boolean result = this.moveOneCard(this.fromCol, this.toCol, idElementToMove);
 
-			Card elementToMove = fromCol.get(i);
-			Card lastElement = toCol.get(toCol.size() - 1);
+		if(result){
 
-			if( ( lastElement.getValue() > elementToMove.getValue() ) && ( lastElement.getValue() - elementToMove.getValue() == 1 ) ){
-				toCol.add(elementToMove);
-				fromCol.remove(i);
+			this.setCol(from, this.fromCol);
+			this.setCol(to, this.toCol);
 
-				this.setDisplayedBeforeCardWhenMove(fromCol, idElementToMove);
-			}else{
-				System.out.println("");
-				System.out.println("-------------------------------------------------");
-				System.out.println("> Impossile de déplacer la carte : " + elementToMove.getValue() + " - " + elementToMove.toString() + " !");
-				System.out.println("-------------------------------------------------");
-				System.out.println("");
-			}
+			this.matrix = this.createMatrice( this.cols );
 		}
+	}
 
-		this.setCol(from, fromCol);
-		this.setCol(to, toCol);
 
-		this.matrix = this.createMatrice( this.cols );
+	public Boolean moveOneCard(ArrayList<Card> fromCol, ArrayList<Card> toCol, int idElementToMove){
+
+		System.out.println("Carte à déplacer : " + (idElementToMove) + " - " + fromCol.get(idElementToMove));
+
+		Card elementToMove = fromCol.get(idElementToMove);
+		Card lastElement = toCol.get(toCol.size() - 1);
+
+		if( ( lastElement.getValue() > elementToMove.getValue() ) && ( lastElement.getValue() - elementToMove.getValue() == 1 ) ){
+			toCol.add(elementToMove);
+			fromCol.remove(idElementToMove);
+
+			this.setDisplayedBeforeCardWhenMove(fromCol, idElementToMove);
+			return true;
+		}else{
+			System.out.println("");
+			System.out.println("-------------------------------------------------");
+			System.out.println("> Impossile de déplacer la carte : " + elementToMove.getValue() + " - " + elementToMove.toString() + " !");
+			System.out.println("-------------------------------------------------");
+			System.out.println("");
+			return false;
+		}
 	}
 
 }

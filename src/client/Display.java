@@ -34,8 +34,10 @@ public class Display {
 
 	private void displayNumberRow() {
 		for (int col = 0; col < stack.getNbCols(); col++) { // pour chaques colonnes
-			System.out.print("   [ " + col + " ]  ");
+			System.out.print("   [ " + (col+1) + " ]  ");
 		}
 		System.out.println("");
 	}
+
+
 }

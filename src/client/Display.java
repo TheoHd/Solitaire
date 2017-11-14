@@ -28,12 +28,24 @@ public class Display {
 	}
 
 	public void displayGameBoard(){
+		this.changeInterface();
+
+		int nbCols = stack.getNbCols();
 		for (int i = 0; i < stack.getNbRows(); i++) {
 			this.displayCardRow(i);
+
+			if(i % 2 == 0 && i < 6){
+				System.out.print("          1 ♥  <- [ " + (nbCols += 1) + " ]");
+			}
+
 			System.out.println("");
 		}
 		this.displayNumberRow();
 		this.displayPioche();
+	}
+
+	private void changeInterface() {
+		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n");
 	}
 
 	private void displayPioche() {

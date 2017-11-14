@@ -9,9 +9,6 @@ public class Klondike {
 
     public void launch() {
 
-    	// TODO Change architecture, separate app(couche métier) and client(affichage)
-        // TODO : add posibility to move card on empty stack
-
         Stack stack = new Stack();
         Menu menu = new Menu(stack);
         Display display = new Display(stack);

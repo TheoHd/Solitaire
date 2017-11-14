@@ -6,16 +6,12 @@ import java.util.Scanner;
 
 public class Stack {
 
-	private final ArrayList<Card> cartes;
+	private final ArrayList<Card> pioche;
 	private ArrayList<ArrayList> cols = new ArrayList<>();
 	private String[][] matrix;
-	private Scanner sc = new Scanner(System.in);
 
 	private Integer nbCols = 7;
 	private Integer nbRows = 19;
-
-//	private ArrayList<Card> fromCol;
-//	private ArrayList<Card> toCol;
 
 	public Stack() {
 		Pioche pioche = new Pioche();
@@ -26,7 +22,7 @@ public class Stack {
 			this.cols.add(i, col);
 		}
 
-		this.cartes = cartes;
+		this.pioche = cartes;
 		this.initializeStacks();
 		this.matrix = this.createMatrice( this.cols );
 	}
@@ -39,18 +35,18 @@ public class Stack {
 		for (int i = 0; i < 7; i++){
 
 			for (int j = 0; j <= i-1; j++){
-				Card hidden_card = this.cartes.get(j);
+				Card hidden_card = this.pioche.get(j);
 				hidden_card.setVisible(false);
 
 				this.cols.get(i).add(hidden_card);
-				this.cartes.remove(j);
+				this.pioche.remove(j);
 			}
 
-			Card visible_card = this.cartes.get(i);
+			Card visible_card = this.pioche.get(i);
 			visible_card.setVisible(true);
 
 			this.cols.get(i).add(visible_card);
-			this.cartes.remove(i);
+			this.pioche.remove(i);
 		}
 
 	}
@@ -80,7 +76,7 @@ public class Stack {
 	}
 
 	public ArrayList<Card> getPioche(){
-		return this.cartes;
+		return this.pioche;
 	}
 
 	private Integer findFirstElementNumberToMove(ArrayList<Card> col){
@@ -137,12 +133,12 @@ public class Stack {
 
 		ArrayList<Card> col = this.getCol(randomColNumber);
 
-		if (this.cartes.size() > 0) {
+		if (this.pioche.size() > 0) {
 
-			Card card = this.cartes.get(0);
+			Card card = this.pioche.get(0);
 
 			col.add(card);
-			this.cartes.remove(0);
+			this.pioche.remove(0);
 			this.setCol(randomColNumber, col);
 			this.matrix = this.createMatrice( this.cols );
 

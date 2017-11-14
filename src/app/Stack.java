@@ -7,17 +7,30 @@ import java.util.Scanner;
 public class Stack {
 
 	private final ArrayList<Card> pioche;
-	private ArrayList<ArrayList> cols = new ArrayList<>();
+	public ArrayList<ArrayList> cols = new ArrayList<>();
 	private String[][] matrix;
 
 	private Integer nbCols = 7;
 	private Integer nbRows = 19;
+	private Integer nbWinPile = 4;
 
+	public Integer getNbCols() { return nbCols; }
+	public Integer getNbWinPile() { return nbWinPile; }
+	public Integer getNbRows() { return nbRows; }
+	public String[][] getMatrix() { return matrix; }
+	public ArrayList getCol(Integer nbRow){ return this.cols.get(nbRow); }
+	private void setCol(Integer nbRow, ArrayList<Card> col){ this.cols.set(nbRow, col); }
+	public ArrayList<Card> getPioche(){ return this.pioche; }
+
+
+	/*
+	* Constructeur, initialise toutes les piles du jeu (sur le plateau et les piles pour gagner)
+	*/
 	public Stack() {
 		Pioche pioche = new Pioche();
 		ArrayList<Card> cartes = pioche.getPioche();
 
-		for (int i = 0; i < this.nbCols; i++) {
+		for (int i = 0; i < this.nbCols + this.nbWinPile; i++) {
 			ArrayList<Card> col = new ArrayList<>();
 			this.cols.add(i, col);
 		}
@@ -27,12 +40,11 @@ public class Stack {
 		this.matrix = this.createMatrice( this.cols );
 	}
 
-	public Integer getNbCols() { return nbCols; }
-	public Integer getNbRows() { return nbRows; }
-	public String[][] getMatrix() { return matrix; }
-	
+	/*
+	 * Remplie les colonnes du plateau avec des cartes cachées et retournées.
+	 */
 	private void initializeStacks(){
-		for (int i = 0; i < 7; i++){
+		for (int i = 0; i < this.nbCols ; i++){
 
 			for (int j = 0; j <= i-1; j++){
 				Card hidden_card = this.pioche.get(j);
@@ -51,6 +63,9 @@ public class Stack {
 
 	}
 
+	/*
+	 * Creer une matrice qui servira pour l'affichage du plateau
+	 */
 	public String[][] createMatrice(ArrayList<ArrayList> cols) {
 
 		String[][] matrix = new String[this.nbRows][this.nbCols];
@@ -67,18 +82,9 @@ public class Stack {
 	}
 
 
-	private ArrayList<Card> getCol(Integer nbRow){
-		return (ArrayList<Card>) this.cols.get(nbRow);
-	}
-
-	private void setCol(Integer nbRow, ArrayList<Card> col){
-		this.cols.set(nbRow, col);
-	}
-
-	public ArrayList<Card> getPioche(){
-		return this.pioche;
-	}
-
+	/*
+	 * Trouve le premier element à déplacer dans une pile
+	 */
 	private Integer findFirstElementNumberToMove(ArrayList<Card> col){
 
 		Integer firstElement = col.size() - 1; // - 1 car un arrayCollection commence à z&ro
@@ -98,12 +104,18 @@ public class Stack {
 		return firstElement;
 	}
 
+	/*
+	 * Rend visible la carte précédent la carte qui va être bougé
+	 */
 	private void setBeforeMovePreviousCardToVisble(ArrayList<Card> fromCol, Integer idElementToMove) {
 		if(idElementToMove - 1 >= 0){
 			fromCol.get(idElementToMove - 1).setVisible(true);
 		}
 	}
-	
+
+	/*
+	 * Method qui va initialisé le déplacement d'une ou plusieurs cartes
+	 */
 	public void move(Integer from, Integer to) {
 
 		ArrayList<Card> fromCol = this.getCol(from);
@@ -126,6 +138,9 @@ public class Stack {
 		}
 	}
 
+	/*
+	 * Ajoute une carte de la pioche dans une pile random du tableau
+	 */
 	public Boolean addPiocheCardOnPile(){
 
 		Random rand = new Random();
@@ -148,15 +163,21 @@ public class Stack {
 		return false;
 	}
 
+	/*
+	 * Retourne true si plusieurs cartes doivent être déplacer
+	 */
 	private boolean isPileCard(ArrayList<Card> fromCol) {
 
-		Integer Nbfirst = this.findFirstElementNumberToMove(fromCol);
-		Integer NbLast = fromCol.size() - 1;
+		int Nbfirst = this.findFirstElementNumberToMove(fromCol);
+		int NbLast = fromCol.size() - 1;
 
 		return Nbfirst != NbLast;
 	}
 
 
+	/*
+	 * Déplace un ensemble de carte
+	 */
 	public boolean moveStack(ArrayList<Card> fromCol, ArrayList<Card> toCol, int idElementToMove){
 
 		for (int i = idElementToMove; i <= fromCol.size(); i++) {
@@ -166,9 +187,10 @@ public class Stack {
 		return true;
 	}
 
+	/*
+	 * Déplace une carte
+	 */
 	public Boolean moveOneCard(ArrayList<Card> fromCol, ArrayList<Card> toCol, int idElementToMove){
-
-		//System.out.println("Carte à déplacer : " + (idElementToMove) + " - " + fromCol.get(idElementToMove));
 
 		Card elementToMove = fromCol.get(idElementToMove);
 

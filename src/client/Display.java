@@ -9,6 +9,7 @@ public class Display {
 
 	private String[][] matrix;
 	private Stack stack;
+	private Integer nbCols;
 
 	public Display(Stack stack){
 		this.stack = stack;
@@ -17,6 +18,10 @@ public class Display {
 
 	public void setMatrix(String[][] matrix) { this.matrix = matrix; }
 
+
+	/*
+	 * Affiche une colonne (rangé) du plateau
+	 */
 	private void displayCardRow(int row) {
 		for (int col = 0; col < stack.getNbCols(); col++) { // pour chaques colonnes
 			if( this.matrix[row][col] == null ){
@@ -27,16 +32,17 @@ public class Display {
 		}
 	}
 
+	/*
+	 * Affiche tout les elements necessaires pour voir le plateau de jeu complet
+	 */
 	public void displayGameBoard(){
 		this.changeInterface();
 
-		int nbCols = stack.getNbCols();
+		this.nbCols = stack.getNbCols();
 		for (int i = 0; i < stack.getNbRows(); i++) {
-			this.displayCardRow(i);
 
-			if(i % 2 == 0 && i < 6){
-				System.out.print("          1 ♥  <- [ " + (nbCols += 1) + " ]");
-			}
+			this.displayCardRow(i);
+			this.displayWinPile(i);
 
 			System.out.println("");
 		}
@@ -44,6 +50,27 @@ public class Display {
 		this.displayPioche();
 	}
 
+	/*
+	 * Affiche les piles necessaires pour gagner une partie
+	 */
+	private void displayWinPile(int i) {
+		if(i % 2 == 0 && i < 8){
+
+			this.nbCols += 1;
+			ArrayList<Card> col = this.stack.getCol(nbCols - 1);
+
+			if(col.size() != 0){
+				Card lastCard = col.get(col.size() - 1);
+				System.out.print("          " + lastCard.toString() + "  <- [ " + (nbCols) + " ]");
+			}else{
+				System.out.print("          VIDE  <- [ " + (nbCols) + " ]");
+			}
+		}
+	}
+
+	/*
+	 * Saute plein de ligne pour "simuler" un cha
+	 */
 	private void changeInterface() {
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n");
 	}
@@ -65,6 +92,10 @@ public class Display {
 		}
 	}
 
+
+	/*
+	 * Affiche une ligne de carte pour chaques colonnes
+	 */
 	private void displayNumberRow() {
 		for (int col = 0; col < stack.getNbCols(); col++) { // pour chaques colonnes
 			System.out.print("   [ " + (col+1) + " ]  ");

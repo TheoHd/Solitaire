@@ -10,6 +10,9 @@ public class Pioche {
     private ArrayList<Integer> valeur;
     private ArrayList<Card> cartes;
 
+    /*
+     * Initialise les tableau pour les valeaurs et les types
+     */
     public Pioche(){
         String[] formeArray = {"♦","♥","♣","♠"};
         this.forme = new ArrayList<>(Arrays.asList(formeArray));
@@ -20,6 +23,9 @@ public class Pioche {
         this.assembleArray();
     }
 
+    /*
+     * Multiplie 2 talbeau entre eux , Valeur et Type
+     */
     private void assembleArray(){
         this.cartes = new ArrayList<>();
         for (int f = 0; f < this.forme.size() ; f++) {
@@ -33,6 +39,9 @@ public class Pioche {
         this.shuffleCards();
     }
 
+    /*
+     * Melange un tableau (Array Collection)
+     */
     private void shuffleCards(){
         Collections.shuffle(this.cartes);
     }
@@ -40,8 +49,5 @@ public class Pioche {
     public ArrayList<Card> getPioche(){
         return this.cartes;
     }
-
-
-
 
 }

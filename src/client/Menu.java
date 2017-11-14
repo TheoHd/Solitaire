@@ -15,8 +15,12 @@ public class Menu {
     public Menu(Stack stack){
         this.stack = stack;
     }
+
 	private Scanner sc = new Scanner(System.in);
-	
+
+    /*
+     * Menu qui s'affiche pour déplacer une carte , quand le plateau est visible
+     */
 	public String displayMenuDuringGame(){
 	    System.out.println("");
 	    System.out.println("-------------------------------------------------");
@@ -26,7 +30,10 @@ public class Menu {
 
         return choix;
     }
-	
+
+    /*
+     * Menu qui s'affiche lors du lancement du jeu
+     */
 	public Integer displayStartupMenu() {
         System.out.println("****** MENU DU JEU ********");
         System.out.println("1: Démarrer une partie");
@@ -44,6 +51,9 @@ public class Menu {
         return choix;
     }
 
+    /*
+     * Actionne une method qui correspond à la saisie d'un utilisateur, (menu de démarrage)
+     */
     public void getCorrespondantAction(Integer choix) {
         if( choix == 1 ){
 
@@ -61,6 +71,9 @@ public class Menu {
         }
     }
 
+    /*
+     * Actionne une method qui correspond à la saisie d'un utilisateur, (lors d'une partie)
+     */
     public void getGameAction(String choixFrom) {
 
 	    if(Objects.equals(choixFrom, "*")){

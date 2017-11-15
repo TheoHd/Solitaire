@@ -50,4 +50,7 @@ public class Pioche {
         return this.cartes;
     }
 
+    public int getLastValue() {
+        return this.valeur.get( this.valeur.size() - 1 );
+    }
 }

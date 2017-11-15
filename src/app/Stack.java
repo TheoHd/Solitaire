@@ -7,7 +7,8 @@ import java.util.Scanner;
 public class Stack {
 
 	private final ArrayList<Card> pioche;
-	public ArrayList<ArrayList> cols = new ArrayList<>();
+    private final int lastValue;
+    public ArrayList<ArrayList> cols = new ArrayList<>();
 	private String[][] matrix;
 
 	private Integer nbCols = 7;
@@ -29,6 +30,7 @@ public class Stack {
 	public Stack() {
 		Pioche pioche = new Pioche();
 		ArrayList<Card> cartes = pioche.getPioche();
+        this.lastValue = pioche.getLastValue();
 
 		for (int i = 0; i < this.nbCols + this.nbWinPile; i++) {
 			ArrayList<Card> col = new ArrayList<>();
@@ -248,5 +250,31 @@ public class Stack {
 			return false;
 		}
 	}
+
+
+	/*
+	* Methode qui vérifies ques les piles sont bien remplie.
+	*/
+
+	public boolean hasWin(){
+
+        int totalCols = this.nbCols + this.nbWinPile;
+        for (int i = this.nbCols; i < totalCols; i++) {
+
+            ArrayList<Card> col = this.getCol(i);
+            if(col.size() > 0){
+
+                Card lastElement = col.get( col.size() - 1 );
+                if( lastElement.getValue() == this.lastValue ){
+                    return false;
+                }
+
+            }else{
+                return false;
+            }
+        }
+
+        return true;
+    }
 
 }

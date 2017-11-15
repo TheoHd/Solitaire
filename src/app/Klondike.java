@@ -6,10 +6,11 @@ import client.Menu;
 public class Klondike {
 
     private boolean hasWin = false;
+    private Stack stack;
 
     public void launch() {
 
-        Stack stack = new Stack();
+        this.stack = new Stack();
         Menu menu = new Menu(stack);
         Display display = new Display(stack);
 
@@ -17,7 +18,7 @@ public class Klondike {
         Integer startupChoice = 1; // A enlever plus tard
         menu.getCorrespondantAction(startupChoice);
 
-        while (!this.hasWin){
+        while ( !this.stack.hasWin() ){
             display.displayGameBoard();
 
             String inGameColChoice = menu.displayMenuDuringGame();
@@ -26,5 +27,7 @@ public class Klondike {
             display.setMatrix( stack.getMatrix() );
         }
 
+        System.out.println("Fin du jeu ............");
     }
+
 }

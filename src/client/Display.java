@@ -46,6 +46,7 @@ public class Display {
 
 			System.out.println("");
 		}
+
 		this.displayNumberRow();
 		this.displayPioche();
 	}

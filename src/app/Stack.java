@@ -116,24 +116,24 @@ public class Stack {
 	/*
 	 * Method qui va initialisé le déplacement d'une ou plusieurs cartes
 	 */
-	public void move(Integer from, Integer to) {
+	public void move(Integer idFrom, Integer idTo) {
 
-		ArrayList<Card> fromCol = this.getCol(from);
-		ArrayList<Card> toCol = this.getCol(to);
+		ArrayList<Card> fromCol = this.getCol(idFrom);
+		ArrayList<Card> toCol = this.getCol(idTo);
 
 		boolean result = false;
 
 		Integer idElementToMove = this.findFirstElementNumberToMove(fromCol);
 
-		if(!this.isPileCard(fromCol)){
-			result = this.moveOneCard(fromCol, toCol, idElementToMove);
+		if(!this.isPileCard(idFrom)){
+			result = this.moveOneCard(idFrom, idTo, idElementToMove);
 		}else{
-			result = this.moveStack(fromCol, toCol, idElementToMove);
+			result = this.moveStack(idFrom, idTo, idElementToMove);
 		}
 
 		if(result){
-			this.setCol(from, fromCol);
-			this.setCol(to, toCol);
+			this.setCol(idFrom, fromCol);
+			this.setCol(idTo, toCol);
 			this.matrix = this.createMatrice( this.cols );
 		}
 	}
@@ -166,7 +166,9 @@ public class Stack {
 	/*
 	 * Retourne true si plusieurs cartes doivent être déplacer
 	 */
-	private boolean isPileCard(ArrayList<Card> fromCol) {
+	private boolean isPileCard(int idFrom) {
+
+		ArrayList<Card> fromCol = this.getCol(idFrom);
 
 		int Nbfirst = this.findFirstElementNumberToMove(fromCol);
 		int NbLast = fromCol.size() - 1;
@@ -178,10 +180,12 @@ public class Stack {
 	/*
 	 * Déplace un ensemble de carte
 	 */
-	public boolean moveStack(ArrayList<Card> fromCol, ArrayList<Card> toCol, int idElementToMove){
+	public boolean moveStack(int idFrom, int idTo, int idElementToMove){
+
+		ArrayList<Card> fromCol = this.getCol(idFrom);
 
 		for (int i = idElementToMove; i <= fromCol.size(); i++) {
-			this.moveOneCard(fromCol, toCol, idElementToMove);
+			this.moveOneCard(idFrom, idTo, idElementToMove);
 		}
 
 		return true;
@@ -190,19 +194,43 @@ public class Stack {
 	/*
 	 * Déplace une carte
 	 */
-	public Boolean moveOneCard(ArrayList<Card> fromCol, ArrayList<Card> toCol, int idElementToMove){
+	public Boolean moveOneCard(int idFrom, int idTo, int idElementToMove){
+
+		ArrayList<Card> fromCol = this.getCol(idFrom);
+		ArrayList<Card> toCol = this.getCol(idTo);
 
 		Card elementToMove = fromCol.get(idElementToMove);
 
 		boolean moveAuthorisation = false;
 
+		int totalCols = this.nbCols + this.nbWinPile;
+		ArrayList<Integer> listWinPileId = new ArrayList<>();
+		for (int i = this.nbCols; i <= totalCols; i++) {
+			listWinPileId.add(i);
+		}
+
 		if(toCol.size() > 0){
-			Card lastElement = toCol.get(toCol.size() - 1);
-			if( ( lastElement.getValue() > elementToMove.getValue() ) && ( lastElement.getValue() - elementToMove.getValue() == 1 ) ){
+
+			if(listWinPileId.contains(idTo)){
+				if( fromCol.get(idElementToMove).getValue() - 1 == toCol.get( toCol.size() - 1).getValue() ){
+					moveAuthorisation = true;
+				}
+			}else{
+				Card lastElement = toCol.get(toCol.size() - 1);
+				if( lastElement.getValue() - elementToMove.getValue() == 1 ){
+					moveAuthorisation = true;
+				}
+			}
+
+		}else {
+
+			if(listWinPileId.contains(idTo)){
+				if( fromCol.get(idElementToMove).getValue() == 1 ){
+					moveAuthorisation = true;
+				}
+			}else{
 				moveAuthorisation = true;
 			}
-		}else {
-			moveAuthorisation = true;
 		}
 
 		if(moveAuthorisation){

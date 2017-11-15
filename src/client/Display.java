@@ -69,12 +69,16 @@ public class Display {
 	}
 
 	/*
-	 * Saute plein de ligne pour "simuler" un cha
+	 * Saute plein de ligne pour "simuler" un changement de plateau
 	 */
 	private void changeInterface() {
 		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n");
 	}
 
+
+	/*
+	 * Affiche la première carte de la pioche
+	 */
 	private void displayPioche() {
 		ArrayList<Card> cards = this.stack.getPioche();
 

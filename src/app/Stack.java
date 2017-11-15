@@ -97,7 +97,7 @@ public class Stack {
 				Card compare1 = col.get(i);
 				Card compare2 = col.get(i + 1);
 
-				if(compare1.getValue() > compare2.getValue() && ( compare1.getValue() - compare2.getValue() ) == 1){
+				if( (compare2.getValue() - compare1.getValue() ) == 1){
 					firstElement = i;
 					break;
 				}
@@ -219,7 +219,7 @@ public class Stack {
 				}
 			}else{
 				Card lastElement = toCol.get(toCol.size() - 1);
-				if( lastElement.getValue() - elementToMove.getValue() == 1 ){
+				if( elementToMove.getValue() - lastElement.getValue() == 1 ){
 					moveAuthorisation = true;
 				}
 			}

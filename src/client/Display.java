@@ -19,7 +19,7 @@ public class Display {
 	public void setMatrix(String[][] matrix) { this.matrix = matrix; }
 
 
-	/*
+	/**
 	 * Affiche une colonne (rangé) du plateau
 	 */
 	private void displayCardRow(int row) {
@@ -32,7 +32,7 @@ public class Display {
 		}
 	}
 
-	/*
+	/**
 	 * Affiche tout les elements necessaires pour voir le plateau de jeu complet
 	 */
 	public void displayGameBoard(){
@@ -52,7 +52,7 @@ public class Display {
 		this.displayPioche();
 	}
 
-	/*
+	/**
 	 * Affiche les piles necessaires pour gagner une partie
 	 */
 	private void displayWinPile(int i) {
@@ -78,7 +78,7 @@ public class Display {
 	}
 
 
-	/*
+	/**
 	 * Affiche la première carte de la pioche
 	 */
 	private void displayPioche() {
@@ -99,7 +99,7 @@ public class Display {
 	}
 
 
-	/*
+	/**
 	 * Affiche une ligne de carte pour chaques colonnes
 	 */
 	private void displayNumberRow() {

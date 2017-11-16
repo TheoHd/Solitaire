@@ -20,7 +20,7 @@ public class Display {
 
 
 	/**
-	 * Affiche une colonne (rangé) du plateau
+	 * Affiche une rangé du plateau
 	 */
 	private void displayCardRow(int row) {
 		for (int col = 0; col < stack.getNbCols(); col++) { // pour chaques colonnes

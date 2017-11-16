@@ -29,7 +29,7 @@ public class Stack {
 	*/
 	public Stack() {
 		Pioche pioche = new Pioche();
-		ArrayList<Card> cartes = pioche.getPioche();
+		this.pioche = pioche.getPioche();
         this.lastValue = pioche.getLastValue();
 		int totalCols = this.nbCols + this.nbWinPile;
 
@@ -42,7 +42,6 @@ public class Stack {
 			this.listWinPileId.add(i);
 		}
 
-		this.pioche = cartes;
 		this.initializeStacks();
 		this.matrix = this.createMatrice( this.cols );
 	}
@@ -54,18 +53,18 @@ public class Stack {
 		for (int i = 0; i < this.nbCols ; i++){
 
 			for (int j = 0; j <= i-1; j++){
-				Card hidden_card = this.pioche.get(j);
+				Card hidden_card = this.pioche.get(0);
 				hidden_card.setVisible(false);
 
 				this.cols.get(i).add(hidden_card);
-				this.pioche.remove(j);
+				this.pioche.remove(0);
 			}
 
-			Card visible_card = this.pioche.get(i);
+			Card visible_card = this.pioche.get(0);
 			visible_card.setVisible(true);
 
 			this.cols.get(i).add(visible_card);
-			this.pioche.remove(i);
+			this.pioche.remove(0);
 		}
 	}
 
@@ -150,8 +149,6 @@ public class Stack {
 		}
 
 		if(result){
-			this.setCol(idFrom, fromCol);
-			this.setCol(idTo, toCol);
 			this.matrix = this.createMatrice( this.cols );
 		}
 	}
@@ -202,12 +199,7 @@ public class Stack {
 
 		ArrayList<Card> fromCol = this.getCol(idFrom);
 
-		System.out.println(idElementToMove);
-		System.out.println(fromCol.size());
-		System.out.println("");
-
 		int nbTour = fromCol.size() - idElementToMove;
-		System.out.println(nbTour);
 
 		for (int i = 0; i <= nbTour - 1; i++) {
 			this.moveOneCard(idFrom, idTo, idElementToMove);
@@ -295,7 +287,7 @@ public class Stack {
             if(col.size() > 0){
 
                 Card lastElement = col.get( col.size() - 1 );
-                if( lastElement.getValue() == this.lastValue ){
+                if( lastElement.getValue() != this.lastValue ){
                     return false;
                 }
 
@@ -308,3 +300,8 @@ public class Stack {
     }
 
 }
+
+/*
+ * TODO : changer pioche pour choisir colonne ou on veut ajouter la carte, possibilité de change la  carte de la pioche (remettre à la fin)
+ * TODO : Redo & Undo
+ */

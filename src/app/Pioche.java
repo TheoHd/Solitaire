@@ -10,7 +10,7 @@ public class Pioche {
     private ArrayList<Integer> valeur;
     private ArrayList<Card> cartes;
 
-    /*
+    /**
      * Initialise les tableau pour les valeaurs et les types
      */
     public Pioche(){
@@ -23,7 +23,7 @@ public class Pioche {
         this.assembleArray();
     }
 
-    /*
+    /**
      * Multiplie 2 talbeau entre eux , Valeur et Type
      */
     private void assembleArray(){
@@ -39,7 +39,7 @@ public class Pioche {
         this.shuffleCards();
     }
 
-    /*
+    /**
      * Melange un tableau (Array Collection)
      */
     private void shuffleCards(){

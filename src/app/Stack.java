@@ -24,7 +24,7 @@ public class Stack {
 	public ArrayList<Card> getPioche(){ return this.pioche; }
 
 
-	/*
+	/**
 	* Constructeur, initialise toutes les piles du jeu (sur le plateau et les piles pour gagner)
 	*/
 	public Stack() {
@@ -42,7 +42,7 @@ public class Stack {
 		this.matrix = this.createMatrice( this.cols );
 	}
 
-	/*
+	/**
 	 * Remplie les colonnes du plateau avec des cartes cachées et retournées.
 	 */
 	private void initializeStacks(){
@@ -65,7 +65,7 @@ public class Stack {
 
 	}
 
-	/*
+	/**
 	 * Creer une matrice qui servira pour l'affichage du plateau
 	 */
 	public String[][] createMatrice(ArrayList<ArrayList> cols) {
@@ -84,7 +84,7 @@ public class Stack {
 	}
 
 
-	/*
+	/**
 	 * Trouve le premier element à déplacer dans une pile
 	 */
 	private Integer findFirstElementNumberToMove(ArrayList<Card> col){
@@ -106,7 +106,7 @@ public class Stack {
 		return firstElement;
 	}
 
-	/*
+	/**
 	 * Rend visible la carte précédent la carte qui va être bougé
 	 */
 	private void setBeforeMovePreviousCardToVisble(ArrayList<Card> fromCol, Integer idElementToMove) {
@@ -115,7 +115,7 @@ public class Stack {
 		}
 	}
 
-	/*
+	/**
 	 * Method qui va initialisé le déplacement d'une ou plusieurs cartes
 	 */
 	public void move(Integer idFrom, Integer idTo) {
@@ -140,7 +140,7 @@ public class Stack {
 		}
 	}
 
-	/*
+	/**
 	 * Ajoute une carte de la pioche dans une pile random du tableau
 	 */
 	public Boolean addPiocheCardOnPile(){
@@ -165,7 +165,7 @@ public class Stack {
 		return false;
 	}
 
-	/*
+	/**
 	 * Retourne true si plusieurs cartes doivent être déplacer
 	 */
 	private boolean isPileCard(int idFrom) {
@@ -179,7 +179,7 @@ public class Stack {
 	}
 
 
-	/*
+	/**
 	 * Déplace un ensemble de carte
 	 */
 	public boolean moveStack(int idFrom, int idTo, int idElementToMove){
@@ -193,7 +193,7 @@ public class Stack {
 		return true;
 	}
 
-	/*
+	/**
 	 * Déplace une carte
 	 */
 	public Boolean moveOneCard(int idFrom, int idTo, int idElementToMove){
@@ -252,10 +252,9 @@ public class Stack {
 	}
 
 
-	/*
-	* Methode qui vérifies ques les piles sont bien remplie.
+	/**
+	* Méthode qui vérifies ques les piles sont bien remplie.
 	*/
-
 	public boolean hasWin(){
 
         int totalCols = this.nbCols + this.nbWinPile;

@@ -5,7 +5,6 @@ import client.Menu;
 
 public class Klondike {
 
-    private boolean hasWin = false;
     private Stack stack;
 
     public void launch() {

@@ -39,6 +39,9 @@ public class Display {
 		this.changeInterface();
 
 		this.nbCols = stack.getNbCols();
+
+		this.displayNumberRow();
+		System.out.println();
 		for (int i = 0; i < stack.getNbRows(); i++) {
 
 			this.displayCardRow(i);
@@ -46,8 +49,6 @@ public class Display {
 
 			System.out.println("");
 		}
-
-		this.displayNumberRow();
 		this.displayPioche();
 	}
 
@@ -103,7 +104,7 @@ public class Display {
 	 */
 	private void displayNumberRow() {
 		for (int col = 0; col < stack.getNbCols(); col++) { // pour chaques colonnes
-			System.out.print("   [ " + (col+1) + " ]  ");
+			System.out.print("  [ " + (col+1) + " ]   ");
 		}
 		System.out.println("");
 	}

@@ -10,6 +10,7 @@ public class Stack {
     private final int lastValue;
     public ArrayList<ArrayList> cols = new ArrayList<>();
 	private String[][] matrix;
+	private ArrayList<Integer> listWinPileId = new ArrayList<>();
 
 	private Integer nbCols = 7;
 	private Integer nbRows = 19;
@@ -23,7 +24,6 @@ public class Stack {
 	private void setCol(Integer nbRow, ArrayList<Card> col){ this.cols.set(nbRow, col); }
 	public ArrayList<Card> getPioche(){ return this.pioche; }
 
-
 	/*
 	* Constructeur, initialise toutes les piles du jeu (sur le plateau et les piles pour gagner)
 	*/
@@ -31,10 +31,15 @@ public class Stack {
 		Pioche pioche = new Pioche();
 		ArrayList<Card> cartes = pioche.getPioche();
         this.lastValue = pioche.getLastValue();
+		int totalCols = this.nbCols + this.nbWinPile;
 
-		for (int i = 0; i < this.nbCols + this.nbWinPile; i++) {
+		for (int i = 0; i < totalCols; i++) {
 			ArrayList<Card> col = new ArrayList<>();
 			this.cols.add(i, col);
+		}
+
+		for (int i = this.nbCols; i <= totalCols; i++) {
+			this.listWinPileId.add(i);
 		}
 
 		this.pioche = cartes;
@@ -62,7 +67,6 @@ public class Stack {
 			this.cols.get(i).add(visible_card);
 			this.pioche.remove(i);
 		}
-
 	}
 
 	/*
@@ -83,26 +87,33 @@ public class Stack {
 		return matrix;
 	}
 
-
 	/*
 	 * Trouve le premier element à déplacer dans une pile
 	 */
-	private Integer findFirstElementNumberToMove(ArrayList<Card> col){
+	private Integer findFirstElementNumberToMove(ArrayList<Card> toCol, ArrayList<Card> fromCol){
 
-		Integer firstElement = col.size() - 1; // - 1 car un arrayCollection commence à z&ro
+		Integer firstElement;
+		if( this.listWinPileId.contains(fromCol) ){
+			firstElement = toCol.size() - 1;
+		}else{
 
-		for (int i = 0; i < col.size() - 1 ; i++) {
-			if(col.get(i).isVisible()){
+			firstElement = toCol.size() - 1; // - 1 car un arrayCollection commence à z&ro
 
-				Card compare1 = col.get(i);
-				Card compare2 = col.get(i + 1);
+			for (int i = 0; i < toCol.size() - 1 ; i++) {
+				if(toCol.get(i).isVisible()){
 
-				if( (compare2.getValue() - compare1.getValue() ) == 1){
-					firstElement = i;
-					break;
+					Card compare1 = toCol.get(i);
+					Card compare2 = toCol.get(i + 1);
+
+					if( (compare1.getValue() - compare2.getValue() ) == 1){
+						firstElement = i;
+						break;
+					}
 				}
 			}
+
 		}
+
 		return firstElement;
 	}
 
@@ -125,12 +136,17 @@ public class Stack {
 
 		boolean result = false;
 
-		Integer idElementToMove = this.findFirstElementNumberToMove(fromCol);
+		Integer idElementToMove = this.findFirstElementNumberToMove(fromCol, toCol);
 
-		if(!this.isPileCard(idFrom)){
+		if(!this.isPileCard(idFrom, idTo)){
 			result = this.moveOneCard(idFrom, idTo, idElementToMove);
 		}else{
-			result = this.moveStack(idFrom, idTo, idElementToMove);
+
+			if( this.listWinPileId.contains(idTo) ){
+				result = this.moveStackOnWinPileCard(idFrom, idTo, idElementToMove);
+			}else{
+				result = this.moveStack(idFrom, idTo, idElementToMove);
+			}
 		}
 
 		if(result){
@@ -168,16 +184,16 @@ public class Stack {
 	/*
 	 * Retourne true si plusieurs cartes doivent être déplacer
 	 */
-	private boolean isPileCard(int idFrom) {
+	private boolean isPileCard(int idFrom, int idTo) {
 
 		ArrayList<Card> fromCol = this.getCol(idFrom);
+		ArrayList<Card> toCol = this.getCol(idTo);
 
-		int Nbfirst = this.findFirstElementNumberToMove(fromCol);
+		int Nbfirst = this.findFirstElementNumberToMove(fromCol, toCol);
 		int NbLast = fromCol.size() - 1;
 
 		return Nbfirst != NbLast;
 	}
-
 
 	/*
 	 * Déplace un ensemble de carte
@@ -186,8 +202,29 @@ public class Stack {
 
 		ArrayList<Card> fromCol = this.getCol(idFrom);
 
-		for (int i = idElementToMove; i <= fromCol.size(); i++) {
+		System.out.println(idElementToMove);
+		System.out.println(fromCol.size());
+		System.out.println("");
+
+		int nbTour = fromCol.size() - idElementToMove;
+		System.out.println(nbTour);
+
+		for (int i = 0; i <= nbTour - 1; i++) {
 			this.moveOneCard(idFrom, idTo, idElementToMove);
+		}
+
+		return true;
+	}
+
+	/*
+	 * Déplace un ensemble de carte
+	 */
+	public boolean moveStackOnWinPileCard(int idFrom, int idTo, int idElementToMove){
+
+		ArrayList<Card> fromCol = this.getCol(idFrom);
+
+		for (int i = fromCol.size(); i >= idElementToMove ; i--) {
+			this.moveOneCard(idFrom, idTo, i);
 		}
 
 		return true;
@@ -205,28 +242,22 @@ public class Stack {
 
 		boolean moveAuthorisation = false;
 
-		int totalCols = this.nbCols + this.nbWinPile;
-		ArrayList<Integer> listWinPileId = new ArrayList<>();
-		for (int i = this.nbCols; i <= totalCols; i++) {
-			listWinPileId.add(i);
-		}
-
 		if(toCol.size() > 0){
 
-			if(listWinPileId.contains(idTo)){
+			if(this.listWinPileId.contains(idTo)){
 				if( fromCol.get(idElementToMove).getValue() - 1 == toCol.get( toCol.size() - 1).getValue() ){
 					moveAuthorisation = true;
 				}
 			}else{
 				Card lastElement = toCol.get(toCol.size() - 1);
-				if( elementToMove.getValue() - lastElement.getValue() == 1 ){
+				if( lastElement.getValue() - elementToMove.getValue() == 1 ){
 					moveAuthorisation = true;
 				}
 			}
 
-		}else {
+		}else{
 
-			if(listWinPileId.contains(idTo)){
+			if(this.listWinPileId.contains(idTo)){
 				if( fromCol.get(idElementToMove).getValue() == 1 ){
 					moveAuthorisation = true;
 				}
@@ -250,7 +281,6 @@ public class Stack {
 			return false;
 		}
 	}
-
 
 	/*
 	* Methode qui vérifies ques les piles sont bien remplie.

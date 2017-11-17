@@ -15,7 +15,10 @@ public class Klondike {
         Integer startupChoice = 1; // A enlever plus tard
         menu.getCorrespondantAction(startupChoice);
 
+        stack.addCurrentMouvementToHistory();
+
         while ( !stack.hasWin() ){
+
             display.displayGameBoard();
 
             String inGameColChoice = menu.displayMenuDuringGame();

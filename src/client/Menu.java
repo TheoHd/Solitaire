@@ -78,9 +78,30 @@ public class Menu {
 
 	    if(Objects.equals(choixFrom, "*")){
 
-            if( !stack.addPiocheCardOnPile() ){
+            System.out.print("> Mettre la carte de la pioche sur la pile n° (* pour changer de carte) : ");
+            String intColTo = sc.next().toLowerCase();;
+
+            if(this.stack.getPioche().size() > 0){
+
+                if(Objects.equals(intColTo, "*")){
+                    stack.changePiocheCard();
+                }else{
+                    stack.addPiocheCardOnPile( Integer.parseInt(intColTo) - 1);
+                }
+
+            }else{
                 System.out.println("La pioche est vide ! impossible de piocher une carte !");
             }
+
+            stack.addCurrentMouvementToHistory();
+
+        }else if(Objects.equals(choixFrom, "<")){
+
+            if( !stack.undo() ){ System.out.println("Impossible de revenir en arrière"); }
+
+        }else if(Objects.equals(choixFrom, ">")){
+
+            if( !stack.redo() ){ System.out.println("Impossible d'effectuer l'opération"); }
 
         }else{
             int intColFrom = Integer.parseInt(choixFrom);
@@ -89,6 +110,7 @@ public class Menu {
             Integer intColTo = sc.nextInt();
 
             stack.move(intColFrom - 1, intColTo - 1); // -1 car l'indexation commence à zéro
+            stack.addCurrentMouvementToHistory();
         }
     }
 }

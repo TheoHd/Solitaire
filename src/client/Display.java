@@ -70,7 +70,7 @@ public class Display {
 		}
 	}
 
-	/*
+	/**
 	 * Saute plein de ligne pour "simuler" un changement de plateau
 	 */
 	private void changeInterface() {
@@ -90,7 +90,7 @@ public class Display {
 			Card card = cards.get(0);
 
 			card.setVisible(true);
-			System.out.print("Pour piocher une carte tapez (*) | ");
+			System.out.print("Pioche : (*) | ");
 			System.out.print("Cartes restantes : " + cards.size());
 			System.out.println(" | Prochaine carte : " + card.toString());
 		}else{

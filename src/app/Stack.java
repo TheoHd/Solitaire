@@ -1,12 +1,10 @@
 package app;
 
 import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
 
 public class Stack {
 
-	private final ArrayList<Card> pioche;
+	private ArrayList<Card> pioche;
     private final int lastValue;
     public ArrayList<ArrayList> cols = new ArrayList<>();
 	private String[][] matrix;
@@ -16,8 +14,10 @@ public class Stack {
 	private Integer nbRows = 19;
 	private Integer nbWinPile = 4;
 
+	private ArrayList<ArrayList> history = new ArrayList<>();
+	private Integer currentHistoryVersion = 0;
+
 	public Integer getNbCols() { return nbCols; }
-	public Integer getNbWinPile() { return nbWinPile; }
 	public Integer getNbRows() { return nbRows; }
 	public String[][] getMatrix() { return matrix; }
 	public ArrayList getCol(Integer nbRow){ return this.cols.get(nbRow); }
@@ -125,7 +125,7 @@ public class Stack {
 		}
 	}
 
-	/*
+	/**
 	 * Method qui va initialisé le déplacement d'une ou plusieurs cartes
 	 */
 	public void move(Integer idFrom, Integer idTo) {
@@ -138,7 +138,7 @@ public class Stack {
 		Integer idElementToMove = this.findFirstElementNumberToMove(fromCol, toCol);
 
 		if(!this.isPileCard(idFrom, idTo)){
-			result = this.moveOneCard(idFrom, idTo, idElementToMove);
+			result = this.moveOneCard(idFrom, idTo, idElementToMove, false);
 		}else{
 
 			if( this.listWinPileId.contains(idTo) ){
@@ -153,30 +153,29 @@ public class Stack {
 		}
 	}
 
-	/*
-	 * Ajoute une carte de la pioche dans une pile random du tableau
+	/**
+	 * Ajoute une carte de la pioche dans une pile
 	 */
-	public Boolean addPiocheCardOnPile(){
-
-		Random rand = new Random();
-		Integer randomColNumber = rand.nextInt(this.nbCols);
-
-		ArrayList<Card> col = this.getCol(randomColNumber);
+	public Boolean addPiocheCardOnPile(Integer intColTo){
 
 		if (this.pioche.size() > 0) {
-
-			Card card = this.pioche.get(0);
-
-			col.add(card);
-			this.pioche.remove(0);
-			this.setCol(randomColNumber, col);
+			this.moveOneCard(0, intColTo, 0, true);
 			this.matrix = this.createMatrice( this.cols );
-
 			return true;
 		}
 
 		return false;
 	}
+
+	/**
+	 * Change la première carte de la pioche et le mets en dernière position
+	 */
+	public void changePiocheCard(){
+		Card card = this.pioche.get(0);
+		this.pioche.remove(0);
+		this.pioche.add(card);
+	}
+
 
 	/*
 	 * Retourne true si plusieurs cartes doivent être déplacer
@@ -202,7 +201,7 @@ public class Stack {
 		int nbTour = fromCol.size() - idElementToMove;
 
 		for (int i = 0; i <= nbTour - 1; i++) {
-			this.moveOneCard(idFrom, idTo, idElementToMove);
+			this.moveOneCard(idFrom, idTo, idElementToMove, false);
 		}
 
 		return true;
@@ -215,8 +214,8 @@ public class Stack {
 
 		ArrayList<Card> fromCol = this.getCol(idFrom);
 
-		for (int i = fromCol.size(); i >= idElementToMove ; i--) {
-			this.moveOneCard(idFrom, idTo, i);
+		for (int i = fromCol.size() - 1; i >= idElementToMove ; i--) {
+			this.moveOneCard(idFrom, idTo, i, false);
 		}
 
 		return true;
@@ -225,11 +224,15 @@ public class Stack {
 	/*
 	 * Déplace une carte
 	 */
-	public Boolean moveOneCard(int idFrom, int idTo, int idElementToMove){
+	public Boolean moveOneCard(int idFrom, int idTo, int idElementToMove, boolean getOnPileCard){
 
 		ArrayList<Card> fromCol = this.getCol(idFrom);
-		ArrayList<Card> toCol = this.getCol(idTo);
+		if(getOnPileCard) {
+			fromCol = this.pioche;
+		}
 
+
+		ArrayList<Card> toCol = this.getCol(idTo);
 		Card elementToMove = fromCol.get(idElementToMove);
 
 		boolean moveAuthorisation = false;
@@ -277,7 +280,6 @@ public class Stack {
 	/*
 	* Methode qui vérifies ques les piles sont bien remplie.
 	*/
-
 	public boolean hasWin(){
 
         int totalCols = this.nbCols + this.nbWinPile;
@@ -299,9 +301,48 @@ public class Stack {
         return true;
     }
 
+	/*
+	 * Methode pour undo un ou des déplacements
+	 */
+	public void addCurrentMouvementToHistory(){
+		ArrayList<ArrayList> mouvement = new ArrayList<>();
+		mouvement.add(this.cols);
+		mouvement.add(this.pioche);
+		this.history.add(mouvement);
+		this.currentHistoryVersion += 1;
+
+		System.out.println("Nouvelle version #" + currentHistoryVersion);
+	}
+
+	public Boolean undo(){
+		this.currentHistoryVersion -= 1;
+
+		if(currentHistoryVersion >= 0) {
+
+			System.out.println("Retour à la version : #" + currentHistoryVersion);
+
+			ArrayList<ArrayList> version = this.history.get(this.currentHistoryVersion);
+
+			this.cols = version.get(0);
+			this.pioche = version.get(1);
+
+			System.out.println( version.get(0).get(0).toString() );
+
+			this.matrix = this.createMatrice( version.get(0) );
+
+			return true;
+		}
+		return false;
+	}
+
+	public boolean redo() {
+
+		return false;
+	}
 }
 
 /*
- * TODO : changer pioche pour choisir colonne ou on veut ajouter la carte, possibilité de change la  carte de la pioche (remettre à la fin)
+ *
  * TODO : Redo & Undo
+ *
  */

@@ -4,11 +4,13 @@ public class Card {
 
 	private final Integer value;
 	private final String shape;
+	private final Integer shapeId;
 	private Boolean visible = false;
 
-	public Card(Integer value, String shape) {
+	public Card(Integer value, String shape, Integer shapeId) {
 		this.value = value;
 		this.shape = shape;
+		this.shapeId = shapeId;
 	}
 
 	public Card setVisible(Boolean visible) {
@@ -17,6 +19,7 @@ public class Card {
 	}
 
 	public Integer getValue() { return value; }
+	public Integer getShapeId() { return shapeId; }
 	public Boolean isVisible() {
 		return this.visible;
 	}

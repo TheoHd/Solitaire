@@ -32,7 +32,7 @@ public class Pioche {
             for (int v = 0; v < this.valeur.size(); v++) {
                 String formeValue = this.forme.get(f);
                 Integer valeurValue = this.valeur.get(v);
-                Card carte = new Card(valeurValue, formeValue);
+                Card carte = new Card(valeurValue, formeValue, f);
                 this.cartes.add(carte);
             }
         }

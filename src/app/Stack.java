@@ -21,7 +21,7 @@ public class Stack {
 	public Integer getCurrentHistoryVersion() { return currentHistoryVersion; }
 	public Integer getNbRows() { return nbRows; }
 	public String[][] getMatrix() { return matrix; }
-	public ArrayList getCol(Integer nbRow){ return this.cols.get(nbRow); }
+	public ArrayList<Card> getCol(Integer nbRow){ return this.cols.get(nbRow); }
 	private void setCol(Integer nbRow, ArrayList<Card> col){ this.cols.set(nbRow, col); }
 	public ArrayList<Card> getPioche(){ return this.pioche; }
 
@@ -241,15 +241,22 @@ public class Stack {
 
 		boolean moveAuthorisation = false;
 
+		int compareToShape = -1;
+		if(fromCol.get(idElementToMove).getShapeId() == 0){ compareToShape = 1; }
+		if(fromCol.get(idElementToMove).getShapeId() == 1){ compareToShape = 0; }
+		if(fromCol.get(idElementToMove).getShapeId() == 2){ compareToShape = 3; }
+		if(fromCol.get(idElementToMove).getShapeId() == 3){ compareToShape = 2; }
+
 		if(toCol.size() > 0){
 
 			if(this.listWinPileId.contains(idTo)){
-				if( fromCol.get(idElementToMove).getValue() - 1 == toCol.get( toCol.size() - 1).getValue() ){
+				Card lastElement = toCol.get(toCol.size() - 1);
+				if( ( fromCol.get(idElementToMove).getValue() - 1 == lastElement.getValue() ) && ( compareToShape == lastElement.getShapeId() ) ){
 					moveAuthorisation = true;
 				}
 			}else{
 				Card lastElement = toCol.get(toCol.size() - 1);
-				if( lastElement.getValue() - elementToMove.getValue() == 1 ){
+				if( ( lastElement.getValue() - elementToMove.getValue() == 1 ) && ( compareToShape != lastElement.getShapeId() && compareToShape != elementToMove.getShapeId() ) ){
 					moveAuthorisation = true;
 				}
 			}

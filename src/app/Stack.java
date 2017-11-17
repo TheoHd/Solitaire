@@ -18,6 +18,7 @@ public class Stack {
 	private Integer currentHistoryVersion = 0;
 
 	public Integer getNbCols() { return nbCols; }
+	public Integer getCurrentHistoryVersion() { return currentHistoryVersion; }
 	public Integer getNbRows() { return nbRows; }
 	public String[][] getMatrix() { return matrix; }
 	public ArrayList getCol(Integer nbRow){ return this.cols.get(nbRow); }
@@ -269,6 +270,8 @@ public class Stack {
 			fromCol.remove(idElementToMove);
 
 			this.setBeforeMovePreviousCardToVisble(fromCol, idElementToMove);
+
+			this.addCurrentMouvementToHistory( this.getCurrentHistoryVersion() + 1 );
 			return true;
 		}else{
 			System.out.println("");
@@ -313,32 +316,33 @@ public class Stack {
 		mouvement.add(this.pioche);
 		this.history.add(idHistory, mouvement);
 
-		this.currentHistoryVersion = idHistory + 1;
+		this.currentHistoryVersion = idHistory;
+
+		System.out.println("Added version " + idHistory + " - " + this.cols);
 	}
 
 	public Boolean undo(){
-		if(currentHistoryVersion > 0) {
+		if(currentHistoryVersion >= 0) {
 
-			ArrayList<ArrayList> version = this.history.get(this.currentHistoryVersion);
+			ArrayList<ArrayList> version = this.history.get( this.currentHistoryVersion-1 );
 
 			//this.cols = version.get(0);
 			//this.pioche = version.get(1);
 
-			//System.out.println("Retour à la version : #" + (this.currentHistoryVersion));
+			System.out.println( "Retour à la version : #" + ( this.currentHistoryVersion-1 ) );
 
-			//System.out.println( " | Current version :" + this.cols.toString() );
-			//System.out.println( " | Previous version:" + version.get(0).toString() );
+			System.out.println( " | Current version :" + this.cols.toString() );
+			System.out.println( " | Previous version:" + version.get(0).toString() );
 
-			this.matrix = this.createMatrice( version.get(0) );
+			//this.matrix = this.createMatrice( version.get(0) );
 
-			this.currentHistoryVersion -= 1;
+			//this.currentHistoryVersion -= 1;
 			return true;
 		}
 		return false;
 	}
 
 	public boolean redo() {
-
 		return false;
 	}
 }

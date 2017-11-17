@@ -93,8 +93,6 @@ public class Menu {
                 System.out.println("La pioche est vide ! impossible de piocher une carte !");
             }
 
-            stack.addCurrentMouvementToHistory();
-
         }else if(Objects.equals(choixFrom, "<")){
 
             if( !stack.undo() ){ System.out.println("Impossible de revenir en arrière"); }
@@ -109,10 +107,7 @@ public class Menu {
             System.out.print("> Vers : ");
             Integer intColTo = sc.nextInt();
 
-            if (stack.move(intColFrom - 1, intColTo - 1) ) {  // -1 car l'indexation commence à zéro
-                stack.addCurrentMouvementToHistory();
-            }
-
+            stack.move(intColFrom - 1, intColTo - 1);  // -1 car l'indexation commence à zéro
         }
     }
 }

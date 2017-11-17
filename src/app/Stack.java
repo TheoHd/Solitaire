@@ -324,18 +324,17 @@ public class Stack {
 	public Boolean undo(){
 		if(currentHistoryVersion >= 0) {
 
-			ArrayList<ArrayList> version = this.history.get( this.currentHistoryVersion-1 );
+			//ArrayList<ArrayList> version = this.history.get( this.currentHistoryVersion-1 );
 
 			//this.cols = version.get(0);
 			//this.pioche = version.get(1);
 
-			System.out.println( "Retour à la version : #" + ( this.currentHistoryVersion-1 ) );
+			//System.out.println( "Retour à la version : #" + ( this.currentHistoryVersion-1 ) );
 
-			System.out.println( " | Current version :" + this.cols.toString() );
-			System.out.println( " | Previous version:" + version.get(0).toString() );
+			//System.out.println( " | Current version :" + this.cols.toString() );
+			//System.out.println( " | Previous version:" + version.get(0).toString() );
 
 			//this.matrix = this.createMatrice( version.get(0) );
-
 			//this.currentHistoryVersion -= 1;
 			return true;
 		}

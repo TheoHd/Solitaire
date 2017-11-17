@@ -128,7 +128,7 @@ public class Stack {
 	/**
 	 * Method qui va initialisé le déplacement d'une ou plusieurs cartes
 	 */
-	public void move(Integer idFrom, Integer idTo) {
+	public boolean move(Integer idFrom, Integer idTo) {
 
 		ArrayList<Card> fromCol = this.getCol(idFrom);
 		ArrayList<Card> toCol = this.getCol(idTo);
@@ -150,7 +150,10 @@ public class Stack {
 
 		if(result){
 			this.matrix = this.createMatrice( this.cols );
+			return true;
 		}
+
+		return false;
 	}
 
 	/**
@@ -304,32 +307,31 @@ public class Stack {
 	/*
 	 * Methode pour undo un ou des déplacements
 	 */
-	public void addCurrentMouvementToHistory(){
+	public void addCurrentMouvementToHistory(Integer idHistory){
 		ArrayList<ArrayList> mouvement = new ArrayList<>();
 		mouvement.add(this.cols);
 		mouvement.add(this.pioche);
-		this.history.add(mouvement);
-		this.currentHistoryVersion += 1;
+		this.history.add(idHistory, mouvement);
 
-		System.out.println("Nouvelle version #" + currentHistoryVersion);
+		this.currentHistoryVersion = idHistory + 1;
 	}
 
 	public Boolean undo(){
-		this.currentHistoryVersion -= 1;
-
-		if(currentHistoryVersion >= 0) {
-
-			System.out.println("Retour à la version : #" + currentHistoryVersion);
+		if(currentHistoryVersion > 0) {
 
 			ArrayList<ArrayList> version = this.history.get(this.currentHistoryVersion);
 
-			this.cols = version.get(0);
-			this.pioche = version.get(1);
+			//this.cols = version.get(0);
+			//this.pioche = version.get(1);
 
-			System.out.println( version.get(0).get(0).toString() );
+			//System.out.println("Retour à la version : #" + (this.currentHistoryVersion));
+
+			//System.out.println( " | Current version :" + this.cols.toString() );
+			//System.out.println( " | Previous version:" + version.get(0).toString() );
 
 			this.matrix = this.createMatrice( version.get(0) );
 
+			this.currentHistoryVersion -= 1;
 			return true;
 		}
 		return false;

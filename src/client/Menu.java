@@ -109,8 +109,10 @@ public class Menu {
             System.out.print("> Vers : ");
             Integer intColTo = sc.nextInt();
 
-            stack.move(intColFrom - 1, intColTo - 1); // -1 car l'indexation commence à zéro
-            stack.addCurrentMouvementToHistory();
+            if (stack.move(intColFrom - 1, intColTo - 1) ) {  // -1 car l'indexation commence à zéro
+                stack.addCurrentMouvementToHistory();
+            }
+
         }
     }
 }

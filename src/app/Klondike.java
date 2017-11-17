@@ -15,7 +15,7 @@ public class Klondike {
         Integer startupChoice = 1; // A enlever plus tard
         menu.getCorrespondantAction(startupChoice);
 
-        stack.addCurrentMouvementToHistory();
+        stack.addCurrentMouvementToHistory(0); // Ajoute le plateu de départ dans l'historique -> indice 0
 
         while ( !stack.hasWin() ){
 
